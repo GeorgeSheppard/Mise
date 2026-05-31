@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import "../client/axios-instance";
 import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import * as React from "react";
@@ -11,12 +12,13 @@ const queryClient = new QueryClient({
     queries: {
       staleTime: 15 * 60 * 1000,
       cacheTime: 1 * 60 * 60 * 1000, // 1 hour
-      retry: 1,
-      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+      // Retries are handled by the axios interceptor in client/axios-instance.ts
+      retry: false,
       structuralSharing: false,
     },
     mutations: {
-      retry: 1,
+      // Retries are handled by the axios interceptor in client/axios-instance.ts
+      retry: false,
     },
   },
 });
