@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Pencil, Copy, Check } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
@@ -14,13 +14,13 @@ interface RecipeActionsProps {
 }
 
 export function RecipeActions({ recipe, onClose }: RecipeActionsProps) {
-  const router = useRouter();
+  const navigate = useNavigate();
   const deleteRecipe = useDeleteRecipeFromDynamo();
   const [copied, setCopied] = useState(false);
 
   const handleEdit = () => {
     onClose?.();
-    router.push(`/food/${recipe.uuid}`);
+    navigate(`/food/${recipe.uuid}`);
   };
 
   const handleCopyIngredients = async () => {

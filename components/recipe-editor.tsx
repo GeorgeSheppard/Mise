@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,7 +14,7 @@ interface RecipeEditorProps {
 }
 
 export function RecipeEditor({ recipe }: RecipeEditorProps) {
-  const router = useRouter();
+  const navigate = useNavigate();
   const parsedRecipe = useParsedRecipeToDynamo();
 
   const [text, setText] = useState(() => {
@@ -28,7 +28,7 @@ export function RecipeEditor({ recipe }: RecipeEditorProps) {
     setSaving(true);
     try {
       await parsedRecipe.mutateAsync(text, recipe.uuid);
-      await router.push("/food");
+      navigate("/food");
     } catch (error) {
       console.error("Error saving recipe:", error);
       setSaving(false);
@@ -36,7 +36,7 @@ export function RecipeEditor({ recipe }: RecipeEditorProps) {
   };
 
   const handleExit = () => {
-    router.push("/food");
+    navigate("/food");
   };
 
   return (
