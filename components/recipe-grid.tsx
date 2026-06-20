@@ -42,8 +42,6 @@ export function RecipeGrid({ recipeIds }: RecipeGridProps) {
 
   const hasRealRecipes = recipes && recipes.length > 0;
 
-  console.log('has real recipes', hasRealRecipes, recipes)
-
   // We already have recipe data (e.g. from the IndexedDB cache or a prior
   // fetch), so render it straight away rather than waiting on the session
   // to resolve - the session check below only matters when there's nothing

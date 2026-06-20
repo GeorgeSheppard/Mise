@@ -7,9 +7,7 @@ import { getRecipesQueryKey, getMealPlanQueryKey } from "../../client/hooks";
 /**
  * Seeds the react-query cache from IndexedDB on mount so recipes/meal plan
  * can render instantly on first paint, without waiting for auth to resolve
- * or the network request to complete. The Orval-generated query functions
- * cache a raw axios-response-shaped object, so we wrap the stored payload
- * in `{ data: payload }` to match what `select` expects to unwrap.
+ * or the network request to complete.
  *
  * It doesn't matter whose data this is or whether the session is still
  * valid - we just show whatever is cached. useAppSession clears IndexedDB
@@ -27,15 +25,14 @@ export const useHydrateCacheFromIndexedDb = () => {
     const mealPlanKey = getMealPlanQueryKey();
 
     idbGet(RECIPES_CACHE_KEY).then((payload) => {
-      console.log('existing data', queryClient.getQueryData(recipesKey))
       if (payload !== undefined && queryClient.getQueryData(recipesKey) === undefined) {
-        queryClient.setQueryData(recipesKey, { data: payload });
+        queryClient.setQueryData(recipesKey, payload);
       }
     });
 
     idbGet(MEAL_PLAN_CACHE_KEY).then((payload) => {
       if (payload !== undefined && queryClient.getQueryData(mealPlanKey) === undefined) {
-        queryClient.setQueryData(mealPlanKey, { data: payload });
+        queryClient.setQueryData(mealPlanKey, payload);
       }
     });
   }, [queryClient]);

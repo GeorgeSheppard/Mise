@@ -42,12 +42,9 @@ export const useGetRecipes = (
     query: {
       ...options?.query,
       enabled: (options?.query?.enabled ?? true) && isAuthenticated,
-      select: (response: any) => response.data,
     },
     request: options?.axios,
   });
-
-  console.log('query data', query.data)
 
   useEffect(() => {
     if (query.data !== undefined) {
@@ -73,7 +70,6 @@ export const useGetMealPlan = (
     query: {
       ...options?.query,
       enabled: (options?.query?.enabled ?? true) && isAuthenticated,
-      select: (response: any) => response.data,
     },
     request: options?.axios,
   });

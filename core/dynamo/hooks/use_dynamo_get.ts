@@ -20,8 +20,6 @@ const useRecipesBase = <T>({
     },
   });
 
-  console.log('data', recipesQuery.data)
-
   // Convert API response (object) to Map format for compatibility
   const recipesMap: IRecipes = recipesQuery.data ? new Map(Object.entries(recipesQuery.data)) : new Map();
 
@@ -33,11 +31,7 @@ const useRecipesBase = <T>({
 
 export const useRecipes = () => {
   return useRecipesBase({
-    select: (data) => {
-      const temp = Array.from(data.values())
-      console.log('got temp', temp, data)
-      return temp
-    },
+    select: (data) => Array.from(data.values()),
   });
 };
 
