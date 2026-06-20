@@ -1,22 +1,29 @@
-import NextImage, { ImageProps as NextImageProps } from "next/image";
 import React from "react";
+import { cn } from "@/lib/utils";
 
-type CompatImageProps = Omit<NextImageProps, "layout" | "objectFit"> & {
+interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fill?: boolean;
-};
+}
 
 /**
- * Compatibility shim for Next.js 12 Image component.
- * Translates the `fill` boolean prop (Next 13+) to `layout="fill"` + `objectFit="cover"` (Next 12).
+ * Simple image component that replaces Next.js Image.
+ * When `fill` is true, the image will fill its parent container (parent must have position: relative).
  */
-const CompatImage = React.forwardRef<HTMLImageElement, CompatImageProps>(
-  ({ fill, ...props }, ref) => {
+const CompatImage = React.forwardRef<HTMLImageElement, ImageProps>(
+  ({ fill, className, ...props }, ref) => {
     if (fill) {
-      // @ts-ignore - Next 12 uses layout prop instead of fill
-      return <NextImage {...props} layout="fill" objectFit="cover" ref={ref} />;
+      return (
+        <img
+          {...props}
+          ref={ref}
+          className={cn(
+            "absolute inset-0 w-full h-full",
+            className
+          )}
+        />
+      );
     }
-    // @ts-ignore - Next 12 image props differ slightly
-    return <NextImage {...props} ref={ref} />;
+    return <img {...props} ref={ref} className={className} />;
   }
 );
 

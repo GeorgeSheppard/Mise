@@ -8,10 +8,15 @@ export default {
       client: 'react-query',
       httpClient: 'axios',
       mode: 'single',
-      baseUrl: 'https://api.georgesheppard.dev',
       prettier: true,
       clean: true,
       mock: false,
+      override: {
+        mutator: {
+          path: './src/lib/axios.ts',
+          name: 'axiosInstance',
+        },
+      },
     },
   },
 };

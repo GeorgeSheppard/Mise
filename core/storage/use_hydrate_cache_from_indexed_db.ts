@@ -27,6 +27,7 @@ export const useHydrateCacheFromIndexedDb = () => {
     const mealPlanKey = getMealPlanQueryKey();
 
     idbGet(RECIPES_CACHE_KEY).then((payload) => {
+      console.log('existing data', queryClient.getQueryData(recipesKey))
       if (payload !== undefined && queryClient.getQueryData(recipesKey) === undefined) {
         queryClient.setQueryData(recipesKey, { data: payload });
       }

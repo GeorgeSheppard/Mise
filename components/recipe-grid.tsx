@@ -2,13 +2,13 @@ import { useState } from "react";
 import { IRecipe, RecipeUuid } from "../core/types/recipes";
 import { useRecipes } from "../core/dynamo/hooks/use_dynamo_get";
 import { useAppSession } from "../core/hooks/use_app_session";
+import { useAuth } from "@/src/auth/AuthProvider";
 import { ConnectedRecipePreviewCard } from "./connected-recipe-preview-card";
 import { CreateRecipeCard } from "./create-recipe-card";
 import { RecipeDetailDialog } from "./recipe-detail-dialog";
 import { RecipePreviewCard } from "./recipe-preview-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { allRecipes } from "@/lib/recipe-data";
-import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
 import type { Recipe } from "@/lib/recipe-data";
@@ -20,6 +20,7 @@ interface RecipeGridProps {
 export function RecipeGrid({ recipeIds }: RecipeGridProps) {
   const { data: recipes, isLoading } = useRecipes();
   const session = useAppSession();
+  const { signIn } = useAuth();
   const [selectedRecipe, setSelectedRecipe] = useState<IRecipe | null>(null);
   const [selectedTestRecipe, setSelectedTestRecipe] = useState<Recipe | null>(
     null
@@ -41,6 +42,8 @@ export function RecipeGrid({ recipeIds }: RecipeGridProps) {
 
   const hasRealRecipes = recipes && recipes.length > 0;
 
+  console.log('has real recipes', hasRealRecipes, recipes)
+
   // We already have recipe data (e.g. from the IndexedDB cache or a prior
   // fetch), so render it straight away rather than waiting on the session
   // to resolve - the session check below only matters when there's nothing
@@ -58,7 +61,7 @@ export function RecipeGrid({ recipeIds }: RecipeGridProps) {
             </p>
           </div>
           <Button
-            onClick={() => signIn("cognito")}
+            onClick={() => signIn()}
             size="sm"
           >
             <LogIn className="size-4 mr-2" />

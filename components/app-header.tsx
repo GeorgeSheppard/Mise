@@ -1,13 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
-import { useAppSession } from "../core/hooks/use_app_session";
-import { signIn, signOut } from "next-auth/react";
+import { useAuth } from "@/src/auth/AuthProvider";
 import { Button } from "@/components/ui/button";
 import { LogIn, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CreateMcpTokenButton } from "./create-mcp-token-button";
 
 export function AppHeader() {
-  const session = useAppSession();
+  const { isAuthenticated, isLoading, signIn, signOut } = useAuth();
   const location = useLocation();
 
   const navLinks = [
@@ -24,7 +23,7 @@ export function AppHeader() {
         </Link>
 
         <div className="flex items-center gap-1">
-          {session.loading ? null : session.id ? (
+          {isLoading ? null : isAuthenticated ? (
             <>
               <CreateMcpTokenButton />
               <Button
@@ -41,7 +40,7 @@ export function AppHeader() {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => signIn("cognito")}
+              onClick={() => signIn()}
               className="text-muted-foreground"
             >
               <LogIn className="size-4 mr-2" />

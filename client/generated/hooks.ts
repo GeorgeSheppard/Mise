@@ -5,7 +5,10 @@
  * Backend API for georgesheppard.dev websites
  * OpenAPI spec version: 1.0.0
  */
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery
+} from '@tanstack/react-query'
 import type {
   MutationFunction,
   QueryFunction,
@@ -13,10 +16,9 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
-import axios from "axios";
-import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+  UseQueryResult
+} from '@tanstack/react-query'
+import { axiosInstance } from '../../src/lib/axios';
 export type PostKitchencalmParseRecipe500 = {
   /** Error message */
   error: string;
@@ -142,10 +144,10 @@ export type GetKitchencalmShoppingList200Item = {
 };
 
 export type GetKitchencalmShoppingListParams = {
-  /**
-   * Array of Unix timestamps (milliseconds) to include in shopping list
-   */
-  dates?: string | string[];
+/**
+ * Array of Unix timestamps (milliseconds) to include in shopping list
+ */
+dates?: string | string[];
 };
 
 export type PutKitchencalmMealPlan500 = {
@@ -232,14 +234,14 @@ export type GetKitchencalmRecipesSearch200 = {
 };
 
 export type GetKitchencalmRecipesSearchParams = {
-  /**
-   * Search query string
-   */
-  q: string;
-  /**
-   * Comma-separated fields to search: name,description,ingredients,instructions
-   */
-  fields?: string;
+/**
+ * Search query string
+ */
+q: string;
+/**
+ * Comma-separated fields to search: name,description,ingredients,instructions
+ */
+fields?: string;
 };
 
 export type GetKitchencalmRecipes500 = {
@@ -252,7 +254,7 @@ export type GetKitchencalmRecipes401 = {
   error: string;
 };
 
-export type GetKitchencalmRecipes200 = { [key: string]: Recipe };
+export type GetKitchencalmRecipes200 = {[key: string]: Recipe};
 
 export type PostMcpAuthToken401 = {
   error: string;
@@ -308,9 +310,7 @@ export type PostApiRecommendationsAddEmail404AnyOf = {
   success: boolean;
 };
 
-export type PostApiRecommendationsAddEmail404 =
-  | PostApiRecommendationsAddEmail404AnyOf
-  | PostApiRecommendationsAddEmail404AnyOfTwo;
+export type PostApiRecommendationsAddEmail404 = PostApiRecommendationsAddEmail404AnyOf | PostApiRecommendationsAddEmail404AnyOfTwo;
 
 export type PostApiRecommendationsAddEmail400AnyOfTwo = {
   error: string;
@@ -321,9 +321,7 @@ export type PostApiRecommendationsAddEmail400AnyOf = {
   success: boolean;
 };
 
-export type PostApiRecommendationsAddEmail400 =
-  | PostApiRecommendationsAddEmail400AnyOf
-  | PostApiRecommendationsAddEmail400AnyOfTwo;
+export type PostApiRecommendationsAddEmail400 = PostApiRecommendationsAddEmail400AnyOf | PostApiRecommendationsAddEmail400AnyOfTwo;
 
 export type PostApiRecommendationsAddEmail200AnyOfTwo = {
   error: string;
@@ -334,17 +332,15 @@ export type PostApiRecommendationsAddEmail200AnyOf = {
   success: boolean;
 };
 
-export type PostApiRecommendationsAddEmail200 =
-  | PostApiRecommendationsAddEmail200AnyOf
-  | PostApiRecommendationsAddEmail200AnyOfTwo;
+export type PostApiRecommendationsAddEmail200 = PostApiRecommendationsAddEmail200AnyOf | PostApiRecommendationsAddEmail200AnyOfTwo;
 
-export type PostApiRecommendationsAddEmailBodyRecurring =
-  (typeof PostApiRecommendationsAddEmailBodyRecurring)[keyof typeof PostApiRecommendationsAddEmailBodyRecurring];
+export type PostApiRecommendationsAddEmailBodyRecurring = typeof PostApiRecommendationsAddEmailBodyRecurring[keyof typeof PostApiRecommendationsAddEmailBodyRecurring];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PostApiRecommendationsAddEmailBodyRecurring = {
-  true: "true",
-  false: "false",
+  true: 'true',
+  false: 'false',
 } as const;
 
 export type PostApiRecommendationsAddEmailBody = {
@@ -369,6 +365,46 @@ export type GetApiRecommendationsId200 = {
   /** @nullable */
   recommendations: Recommendation[] | null;
   success: boolean;
+};
+
+export type PostAuthLogout200 = {
+  cognitoLogoutUrl: string;
+  success: boolean;
+};
+
+export type PostAuthLogoutParams = {
+redirect_uri?: string;
+};
+
+export type GetAuthSession401 = {
+  error: string;
+};
+
+export type GetAuthSession200User = {
+  email: string;
+  id: string;
+};
+
+export type GetAuthSession200 = {
+  user: GetAuthSession200User;
+};
+
+export type GetAuthCallbackParams = {
+/**
+ * Authorization code returned by Cognito
+ */
+code?: string;
+/**
+ * Must match the oauth_state cookie set during login
+ */
+state?: string;
+};
+
+export type GetAuthLoginParams = {
+/**
+ * Frontend URL to return to after login; must be in the allowed origin list
+ */
+redirect_uri?: string;
 };
 
 export interface MealPlanComponent {
@@ -404,19 +440,20 @@ export interface Instruction {
 /**
  * Unit of measurement
  */
-export type QuantityUnit = (typeof QuantityUnit)[keyof typeof QuantityUnit];
+export type QuantityUnit = typeof QuantityUnit[keyof typeof QuantityUnit];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const QuantityUnit = {
-  none: "none",
-  mL: "mL",
-  L: "L",
-  g: "g",
-  kg: "kg",
-  cup: "cup",
-  tsp: "tsp",
-  tbsp: "tbsp",
-  quantity: "quantity",
+  none: 'none',
+  mL: 'mL',
+  L: 'L',
+  g: 'g',
+  kg: 'kg',
+  cup: 'cup',
+  tsp: 'tsp',
+  tbsp: 'tbsp',
+  quantity: 'quantity',
 } as const;
 
 export interface Quantity {
@@ -477,1307 +514,1131 @@ export interface Recommendation {
   reason: string;
 }
 
-export const getApiRecommendationsId = (
-  id: string,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<GetApiRecommendationsId200>> => {
-  return axios.get(
-    `https://api.georgesheppard.dev/api/recommendations/${id}`,
-    options,
-  );
-};
 
-export const getGetApiRecommendationsIdQueryKey = (id: string) => {
-  return [`https://api.georgesheppard.dev/api/recommendations/${id}`] as const;
-};
 
-export const getGetApiRecommendationsIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof getApiRecommendationsId>>,
-  TError = AxiosError<GetApiRecommendationsId404 | GetApiRecommendationsId422>,
->(
-  id: string,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getApiRecommendationsId>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
+
+type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
+
+
+export const getAuthLogin = (
+    params?: GetAuthLoginParams,
+ options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
 ) => {
-  const { query: queryOptions, axios: axiosOptions } = options ?? {};
+      
+      
+      return axiosInstance<unknown>(
+      {url: `/auth/login`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
 
-  const queryKey =
-    queryOptions?.queryKey ?? getGetApiRecommendationsIdQueryKey(id);
+export const getGetAuthLoginQueryKey = (params?: GetAuthLoginParams,) => {
+    return [`/auth/login`, ...(params ? [params]: [])] as const;
+    }
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getApiRecommendationsId>>
-  > = ({ signal }) => getApiRecommendationsId(id, { signal, ...axiosOptions });
+    
+export const getGetAuthLoginQueryOptions = <TData = Awaited<ReturnType<typeof getAuthLogin>>, TError = void>(params?: GetAuthLoginParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getAuthLogin>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+) => {
 
-  return {
-    queryKey,
-    queryFn,
-    enabled: !!id,
-    ...queryOptions,
-  } as UseQueryOptions<
-    Awaited<ReturnType<typeof getApiRecommendationsId>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export type GetApiRecommendationsIdQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getApiRecommendationsId>>
->;
-export type GetApiRecommendationsIdQueryError = AxiosError<
-  GetApiRecommendationsId404 | GetApiRecommendationsId422
->;
+  const queryKey =  queryOptions?.queryKey ?? getGetAuthLoginQueryKey(params);
 
-export const useGetApiRecommendationsId = <
-  TData = Awaited<ReturnType<typeof getApiRecommendationsId>>,
-  TError = AxiosError<GetApiRecommendationsId404 | GetApiRecommendationsId422>,
->(
-  id: string,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getApiRecommendationsId>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetApiRecommendationsIdQueryOptions(id, options);
+  
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAuthLogin>>> = ({ signal }) => getAuthLogin(params, requestOptions, signal);
 
-  query.queryKey = queryOptions.queryKey;
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAuthLogin>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetAuthLoginQueryResult = NonNullable<Awaited<ReturnType<typeof getAuthLogin>>>
+export type GetAuthLoginQueryError = void
+
+export const useGetAuthLogin = <TData = Awaited<ReturnType<typeof getAuthLogin>>, TError = void>(
+ params?: GetAuthLoginParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getAuthLogin>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetAuthLoginQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
+
+
+
+
+export const getAuthCallback = (
+    params?: GetAuthCallbackParams,
+ options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return axiosInstance<unknown>(
+      {url: `/auth/callback`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+export const getGetAuthCallbackQueryKey = (params?: GetAuthCallbackParams,) => {
+    return [`/auth/callback`, ...(params ? [params]: [])] as const;
+    }
+
+    
+export const getGetAuthCallbackQueryOptions = <TData = Awaited<ReturnType<typeof getAuthCallback>>, TError = void>(params?: GetAuthCallbackParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getAuthCallback>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAuthCallbackQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAuthCallback>>> = ({ signal }) => getAuthCallback(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAuthCallback>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetAuthCallbackQueryResult = NonNullable<Awaited<ReturnType<typeof getAuthCallback>>>
+export type GetAuthCallbackQueryError = void
+
+export const useGetAuthCallback = <TData = Awaited<ReturnType<typeof getAuthCallback>>, TError = void>(
+ params?: GetAuthCallbackParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getAuthCallback>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetAuthCallbackQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+export const getAuthSession = (
+    
+ options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return axiosInstance<GetAuthSession200>(
+      {url: `/auth/session`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getGetAuthSessionQueryKey = () => {
+    return [`/auth/session`] as const;
+    }
+
+    
+export const getGetAuthSessionQueryOptions = <TData = Awaited<ReturnType<typeof getAuthSession>>, TError = GetAuthSession401>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getAuthSession>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAuthSessionQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAuthSession>>> = ({ signal }) => getAuthSession(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAuthSession>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetAuthSessionQueryResult = NonNullable<Awaited<ReturnType<typeof getAuthSession>>>
+export type GetAuthSessionQueryError = GetAuthSession401
+
+export const useGetAuthSession = <TData = Awaited<ReturnType<typeof getAuthSession>>, TError = GetAuthSession401>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getAuthSession>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetAuthSessionQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+export const postAuthLogout = (
+    params?: PostAuthLogoutParams,
+ options?: SecondParameter<typeof axiosInstance>,) => {
+      
+      
+      return axiosInstance<PostAuthLogout200>(
+      {url: `/auth/logout`, method: 'POST',
+        params
+    },
+      options);
+    }
+  
+
+
+export const getPostAuthLogoutMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postAuthLogout>>, TError,{params?: PostAuthLogoutParams}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postAuthLogout>>, TError,{params?: PostAuthLogoutParams}, TContext> => {
+const {mutation: mutationOptions, request: requestOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postAuthLogout>>, {params?: PostAuthLogoutParams}> = (props) => {
+          const {params} = props ?? {};
+
+          return  postAuthLogout(params,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PostAuthLogoutMutationResult = NonNullable<Awaited<ReturnType<typeof postAuthLogout>>>
+    
+    export type PostAuthLogoutMutationError = unknown
+
+    export const usePostAuthLogout = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postAuthLogout>>, TError,{params?: PostAuthLogoutParams}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof postAuthLogout>>,
+        TError,
+        {params?: PostAuthLogoutParams},
+        TContext
+      > => {
+
+      const mutationOptions = getPostAuthLogoutMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
+export const getApiRecommendationsId = (
+    id: string,
+ options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return axiosInstance<GetApiRecommendationsId200>(
+      {url: `/api/recommendations/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getGetApiRecommendationsIdQueryKey = (id: string,) => {
+    return [`/api/recommendations/${id}`] as const;
+    }
+
+    
+export const getGetApiRecommendationsIdQueryOptions = <TData = Awaited<ReturnType<typeof getApiRecommendationsId>>, TError = GetApiRecommendationsId404 | GetApiRecommendationsId422>(id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getApiRecommendationsId>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetApiRecommendationsIdQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getApiRecommendationsId>>> = ({ signal }) => getApiRecommendationsId(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getApiRecommendationsId>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetApiRecommendationsIdQueryResult = NonNullable<Awaited<ReturnType<typeof getApiRecommendationsId>>>
+export type GetApiRecommendationsIdQueryError = GetApiRecommendationsId404 | GetApiRecommendationsId422
+
+export const useGetApiRecommendationsId = <TData = Awaited<ReturnType<typeof getApiRecommendationsId>>, TError = GetApiRecommendationsId404 | GetApiRecommendationsId422>(
+ id: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getApiRecommendationsId>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetApiRecommendationsIdQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
 
 export const postApiRecommendationsAddEmail = (
-  postApiRecommendationsAddEmailBody: PostApiRecommendationsAddEmailBody,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<PostApiRecommendationsAddEmail200>> => {
-  const formUrlEncoded = new URLSearchParams();
-  formUrlEncoded.append("id", postApiRecommendationsAddEmailBody.id);
-  if (postApiRecommendationsAddEmailBody.email !== undefined) {
-    formUrlEncoded.append("email", postApiRecommendationsAddEmailBody.email);
-  }
-  if (postApiRecommendationsAddEmailBody.recurring !== undefined) {
-    formUrlEncoded.append(
-      "recurring",
-      postApiRecommendationsAddEmailBody.recurring,
-    );
-  }
+    postApiRecommendationsAddEmailBody: PostApiRecommendationsAddEmailBody,
+ options?: SecondParameter<typeof axiosInstance>,) => {
+      
+      const formUrlEncoded = new URLSearchParams();
+formUrlEncoded.append('id', postApiRecommendationsAddEmailBody.id)
+if(postApiRecommendationsAddEmailBody.email !== undefined) {
+ formUrlEncoded.append('email', postApiRecommendationsAddEmailBody.email)
+ }
+if(postApiRecommendationsAddEmailBody.recurring !== undefined) {
+ formUrlEncoded.append('recurring', postApiRecommendationsAddEmailBody.recurring)
+ }
 
-  return axios.post(
-    `https://api.georgesheppard.dev/api/recommendations/add-email`,
-    formUrlEncoded,
-    options,
-  );
-};
+      return axiosInstance<PostApiRecommendationsAddEmail200>(
+      {url: `/api/recommendations/add-email`, method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded', },
+       data: formUrlEncoded
+    },
+      options);
+    }
+  
 
-export const getPostApiRecommendationsAddEmailMutationOptions = <
-  TError = AxiosError<
-    PostApiRecommendationsAddEmail400 | PostApiRecommendationsAddEmail404
-  >,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postApiRecommendationsAddEmail>>,
-    TError,
-    { data: PostApiRecommendationsAddEmailBody },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiRecommendationsAddEmail>>,
-  TError,
-  { data: PostApiRecommendationsAddEmailBody },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiRecommendationsAddEmail>>,
-    { data: PostApiRecommendationsAddEmailBody }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getPostApiRecommendationsAddEmailMutationOptions = <TError = PostApiRecommendationsAddEmail400 | PostApiRecommendationsAddEmail404,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postApiRecommendationsAddEmail>>, TError,{data: PostApiRecommendationsAddEmailBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postApiRecommendationsAddEmail>>, TError,{data: PostApiRecommendationsAddEmailBody}, TContext> => {
+const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return postApiRecommendationsAddEmail(data, axiosOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PostApiRecommendationsAddEmailMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiRecommendationsAddEmail>>
->;
-export type PostApiRecommendationsAddEmailMutationBody =
-  PostApiRecommendationsAddEmailBody;
-export type PostApiRecommendationsAddEmailMutationError = AxiosError<
-  PostApiRecommendationsAddEmail400 | PostApiRecommendationsAddEmail404
->;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postApiRecommendationsAddEmail>>, {data: PostApiRecommendationsAddEmailBody}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePostApiRecommendationsAddEmail = <
-  TError = AxiosError<
-    PostApiRecommendationsAddEmail400 | PostApiRecommendationsAddEmail404
-  >,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postApiRecommendationsAddEmail>>,
-    TError,
-    { data: PostApiRecommendationsAddEmailBody },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postApiRecommendationsAddEmail>>,
-  TError,
-  { data: PostApiRecommendationsAddEmailBody },
-  TContext
-> => {
-  const mutationOptions =
-    getPostApiRecommendationsAddEmailMutationOptions(options);
+          return  postApiRecommendationsAddEmail(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
+        
 
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PostApiRecommendationsAddEmailMutationResult = NonNullable<Awaited<ReturnType<typeof postApiRecommendationsAddEmail>>>
+    export type PostApiRecommendationsAddEmailMutationBody = PostApiRecommendationsAddEmailBody
+    export type PostApiRecommendationsAddEmailMutationError = PostApiRecommendationsAddEmail400 | PostApiRecommendationsAddEmail404
+
+    export const usePostApiRecommendationsAddEmail = <TError = PostApiRecommendationsAddEmail400 | PostApiRecommendationsAddEmail404,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postApiRecommendationsAddEmail>>, TError,{data: PostApiRecommendationsAddEmailBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof postApiRecommendationsAddEmail>>,
+        TError,
+        {data: PostApiRecommendationsAddEmailBody},
+        TContext
+      > => {
+
+      const mutationOptions = getPostApiRecommendationsAddEmailMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
 export const postApiRecommendationsDeleteEmail = (
-  postApiRecommendationsDeleteEmailBody: PostApiRecommendationsDeleteEmailBody,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<PostApiRecommendationsDeleteEmail200>> => {
-  const formUrlEncoded = new URLSearchParams();
-  formUrlEncoded.append(
-    "requestId",
-    postApiRecommendationsDeleteEmailBody.requestId,
-  );
+    postApiRecommendationsDeleteEmailBody: PostApiRecommendationsDeleteEmailBody,
+ options?: SecondParameter<typeof axiosInstance>,) => {
+      
+      const formUrlEncoded = new URLSearchParams();
+formUrlEncoded.append('requestId', postApiRecommendationsDeleteEmailBody.requestId)
 
-  return axios.post(
-    `https://api.georgesheppard.dev/api/recommendations/delete-email`,
-    formUrlEncoded,
-    options,
-  );
-};
+      return axiosInstance<PostApiRecommendationsDeleteEmail200>(
+      {url: `/api/recommendations/delete-email`, method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded', },
+       data: formUrlEncoded
+    },
+      options);
+    }
+  
 
-export const getPostApiRecommendationsDeleteEmailMutationOptions = <
-  TError = AxiosError<PostApiRecommendationsDeleteEmail400>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postApiRecommendationsDeleteEmail>>,
-    TError,
-    { data: PostApiRecommendationsDeleteEmailBody },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiRecommendationsDeleteEmail>>,
-  TError,
-  { data: PostApiRecommendationsDeleteEmailBody },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiRecommendationsDeleteEmail>>,
-    { data: PostApiRecommendationsDeleteEmailBody }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getPostApiRecommendationsDeleteEmailMutationOptions = <TError = PostApiRecommendationsDeleteEmail400,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postApiRecommendationsDeleteEmail>>, TError,{data: PostApiRecommendationsDeleteEmailBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postApiRecommendationsDeleteEmail>>, TError,{data: PostApiRecommendationsDeleteEmailBody}, TContext> => {
+const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return postApiRecommendationsDeleteEmail(data, axiosOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PostApiRecommendationsDeleteEmailMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiRecommendationsDeleteEmail>>
->;
-export type PostApiRecommendationsDeleteEmailMutationBody =
-  PostApiRecommendationsDeleteEmailBody;
-export type PostApiRecommendationsDeleteEmailMutationError =
-  AxiosError<PostApiRecommendationsDeleteEmail400>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postApiRecommendationsDeleteEmail>>, {data: PostApiRecommendationsDeleteEmailBody}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePostApiRecommendationsDeleteEmail = <
-  TError = AxiosError<PostApiRecommendationsDeleteEmail400>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postApiRecommendationsDeleteEmail>>,
-    TError,
-    { data: PostApiRecommendationsDeleteEmailBody },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postApiRecommendationsDeleteEmail>>,
-  TError,
-  { data: PostApiRecommendationsDeleteEmailBody },
-  TContext
-> => {
-  const mutationOptions =
-    getPostApiRecommendationsDeleteEmailMutationOptions(options);
+          return  postApiRecommendationsDeleteEmail(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
+        
 
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PostApiRecommendationsDeleteEmailMutationResult = NonNullable<Awaited<ReturnType<typeof postApiRecommendationsDeleteEmail>>>
+    export type PostApiRecommendationsDeleteEmailMutationBody = PostApiRecommendationsDeleteEmailBody
+    export type PostApiRecommendationsDeleteEmailMutationError = PostApiRecommendationsDeleteEmail400
+
+    export const usePostApiRecommendationsDeleteEmail = <TError = PostApiRecommendationsDeleteEmail400,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postApiRecommendationsDeleteEmail>>, TError,{data: PostApiRecommendationsDeleteEmailBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof postApiRecommendationsDeleteEmail>>,
+        TError,
+        {data: PostApiRecommendationsDeleteEmailBody},
+        TContext
+      > => {
+
+      const mutationOptions = getPostApiRecommendationsDeleteEmailMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
 export const postApiRecommendationsFromBookcase = (
-  postApiRecommendationsFromBookcaseBody: PostApiRecommendationsFromBookcaseBody,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<PostApiRecommendationsFromBookcase200>> => {
-  const formData = new FormData();
-  if (postApiRecommendationsFromBookcaseBody.bookcase !== undefined) {
-    formData.append(
-      "bookcase",
-      postApiRecommendationsFromBookcaseBody.bookcase,
-    );
-  }
+    postApiRecommendationsFromBookcaseBody: PostApiRecommendationsFromBookcaseBody,
+ options?: SecondParameter<typeof axiosInstance>,) => {
+      
+      const formData = new FormData();
+if(postApiRecommendationsFromBookcaseBody.bookcase !== undefined) {
+ formData.append('bookcase', postApiRecommendationsFromBookcaseBody.bookcase)
+ }
 
-  return axios.post(
-    `https://api.georgesheppard.dev/api/recommendations/from-bookcase`,
-    formData,
-    options,
-  );
-};
+      return axiosInstance<PostApiRecommendationsFromBookcase200>(
+      {url: `/api/recommendations/from-bookcase`, method: 'POST',
+      headers: {'Content-Type': 'multipart/form-data', },
+       data: formData
+    },
+      options);
+    }
+  
 
-export const getPostApiRecommendationsFromBookcaseMutationOptions = <
-  TError = AxiosError<
-    | PostApiRecommendationsFromBookcase400
-    | PostApiRecommendationsFromBookcase500
-  >,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postApiRecommendationsFromBookcase>>,
-    TError,
-    { data: PostApiRecommendationsFromBookcaseBody },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postApiRecommendationsFromBookcase>>,
-  TError,
-  { data: PostApiRecommendationsFromBookcaseBody },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postApiRecommendationsFromBookcase>>,
-    { data: PostApiRecommendationsFromBookcaseBody }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getPostApiRecommendationsFromBookcaseMutationOptions = <TError = PostApiRecommendationsFromBookcase400 | PostApiRecommendationsFromBookcase500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postApiRecommendationsFromBookcase>>, TError,{data: PostApiRecommendationsFromBookcaseBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postApiRecommendationsFromBookcase>>, TError,{data: PostApiRecommendationsFromBookcaseBody}, TContext> => {
+const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return postApiRecommendationsFromBookcase(data, axiosOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PostApiRecommendationsFromBookcaseMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postApiRecommendationsFromBookcase>>
->;
-export type PostApiRecommendationsFromBookcaseMutationBody =
-  PostApiRecommendationsFromBookcaseBody;
-export type PostApiRecommendationsFromBookcaseMutationError = AxiosError<
-  PostApiRecommendationsFromBookcase400 | PostApiRecommendationsFromBookcase500
->;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postApiRecommendationsFromBookcase>>, {data: PostApiRecommendationsFromBookcaseBody}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePostApiRecommendationsFromBookcase = <
-  TError = AxiosError<
-    | PostApiRecommendationsFromBookcase400
-    | PostApiRecommendationsFromBookcase500
-  >,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postApiRecommendationsFromBookcase>>,
-    TError,
-    { data: PostApiRecommendationsFromBookcaseBody },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postApiRecommendationsFromBookcase>>,
-  TError,
-  { data: PostApiRecommendationsFromBookcaseBody },
-  TContext
-> => {
-  const mutationOptions =
-    getPostApiRecommendationsFromBookcaseMutationOptions(options);
+          return  postApiRecommendationsFromBookcase(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
+        
 
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PostApiRecommendationsFromBookcaseMutationResult = NonNullable<Awaited<ReturnType<typeof postApiRecommendationsFromBookcase>>>
+    export type PostApiRecommendationsFromBookcaseMutationBody = PostApiRecommendationsFromBookcaseBody
+    export type PostApiRecommendationsFromBookcaseMutationError = PostApiRecommendationsFromBookcase400 | PostApiRecommendationsFromBookcase500
+
+    export const usePostApiRecommendationsFromBookcase = <TError = PostApiRecommendationsFromBookcase400 | PostApiRecommendationsFromBookcase500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postApiRecommendationsFromBookcase>>, TError,{data: PostApiRecommendationsFromBookcaseBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof postApiRecommendationsFromBookcase>>,
+        TError,
+        {data: PostApiRecommendationsFromBookcaseBody},
+        TContext
+      > => {
+
+      const mutationOptions = getPostApiRecommendationsFromBookcaseMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
 export const getApiQueueDueRecommendations = (
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<void>> => {
-  return axios.get(
-    `https://api.georgesheppard.dev/api/queue-due-recommendations`,
-    options,
-  );
-};
+    
+ options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return axiosInstance<void>(
+      {url: `/api/queue-due-recommendations`, method: 'GET', signal
+    },
+      options);
+    }
+  
 
 export const getGetApiQueueDueRecommendationsQueryKey = () => {
-  return [
-    `https://api.georgesheppard.dev/api/queue-due-recommendations`,
-  ] as const;
-};
+    return [`/api/queue-due-recommendations`] as const;
+    }
 
-export const getGetApiQueueDueRecommendationsQueryOptions = <
-  TData = Awaited<ReturnType<typeof getApiQueueDueRecommendations>>,
-  TError = AxiosError<GetApiQueueDueRecommendations401>,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof getApiQueueDueRecommendations>>,
-    TError,
-    TData
-  >;
-  axios?: AxiosRequestConfig;
-}) => {
-  const { query: queryOptions, axios: axiosOptions } = options ?? {};
+    
+export const getGetApiQueueDueRecommendationsQueryOptions = <TData = Awaited<ReturnType<typeof getApiQueueDueRecommendations>>, TError = GetApiQueueDueRecommendations401>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getApiQueueDueRecommendations>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ?? getGetApiQueueDueRecommendationsQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getApiQueueDueRecommendations>>
-  > = ({ signal }) =>
-    getApiQueueDueRecommendations({ signal, ...axiosOptions });
+  const queryKey =  queryOptions?.queryKey ?? getGetApiQueueDueRecommendationsQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getApiQueueDueRecommendations>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type GetApiQueueDueRecommendationsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getApiQueueDueRecommendations>>
->;
-export type GetApiQueueDueRecommendationsQueryError =
-  AxiosError<GetApiQueueDueRecommendations401>;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getApiQueueDueRecommendations>>> = ({ signal }) => getApiQueueDueRecommendations(requestOptions, signal);
 
-export const useGetApiQueueDueRecommendations = <
-  TData = Awaited<ReturnType<typeof getApiQueueDueRecommendations>>,
-  TError = AxiosError<GetApiQueueDueRecommendations401>,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof getApiQueueDueRecommendations>>,
-    TError,
-    TData
-  >;
-  axios?: AxiosRequestConfig;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetApiQueueDueRecommendationsQueryOptions(options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
 
-  query.queryKey = queryOptions.queryKey;
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getApiQueueDueRecommendations>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetApiQueueDueRecommendationsQueryResult = NonNullable<Awaited<ReturnType<typeof getApiQueueDueRecommendations>>>
+export type GetApiQueueDueRecommendationsQueryError = GetApiQueueDueRecommendations401
+
+export const useGetApiQueueDueRecommendations = <TData = Awaited<ReturnType<typeof getApiQueueDueRecommendations>>, TError = GetApiQueueDueRecommendations401>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getApiQueueDueRecommendations>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetApiQueueDueRecommendationsQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
+
+
+
 
 /**
  * Exchange a Cognito JWT for a long-lived MCP JWT token
  */
 export const postMcpAuthToken = (
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<PostMcpAuthToken200>> => {
-  return axios.post(
-    `https://api.georgesheppard.dev/mcp/auth/token`,
-    undefined,
-    options,
-  );
-};
+    
+ options?: SecondParameter<typeof axiosInstance>,) => {
+      
+      
+      return axiosInstance<PostMcpAuthToken200>(
+      {url: `/mcp/auth/token`, method: 'POST'
+    },
+      options);
+    }
+  
 
-export const getPostMcpAuthTokenMutationOptions = <
-  TError = AxiosError<PostMcpAuthToken401>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postMcpAuthToken>>,
-    TError,
-    void,
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postMcpAuthToken>>,
-  TError,
-  void,
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postMcpAuthToken>>,
-    void
-  > = () => {
-    return postMcpAuthToken(axiosOptions);
-  };
+export const getPostMcpAuthTokenMutationOptions = <TError = PostMcpAuthToken401,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postMcpAuthToken>>, TError,void, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postMcpAuthToken>>, TError,void, TContext> => {
+const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-  return { mutationFn, ...mutationOptions };
-};
+      
 
-export type PostMcpAuthTokenMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postMcpAuthToken>>
->;
 
-export type PostMcpAuthTokenMutationError = AxiosError<PostMcpAuthToken401>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postMcpAuthToken>>, void> = () => {
+          
 
-export const usePostMcpAuthToken = <
-  TError = AxiosError<PostMcpAuthToken401>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postMcpAuthToken>>,
-    TError,
-    void,
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postMcpAuthToken>>,
-  TError,
-  void,
-  TContext
-> => {
-  const mutationOptions = getPostMcpAuthTokenMutationOptions(options);
+          return  postMcpAuthToken(requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
+        
 
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PostMcpAuthTokenMutationResult = NonNullable<Awaited<ReturnType<typeof postMcpAuthToken>>>
+    
+    export type PostMcpAuthTokenMutationError = PostMcpAuthToken401
+
+    export const usePostMcpAuthToken = <TError = PostMcpAuthToken401,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postMcpAuthToken>>, TError,void, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof postMcpAuthToken>>,
+        TError,
+        void,
+        TContext
+      > => {
+
+      const mutationOptions = getPostMcpAuthTokenMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
 /**
  * Get all recipes for the authenticated user
  */
 export const getKitchencalmRecipes = (
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<GetKitchencalmRecipes200>> => {
-  return axios.get(
-    `https://api.georgesheppard.dev/kitchencalm/recipes`,
-    options,
-  );
-};
+    
+ options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return axiosInstance<GetKitchencalmRecipes200>(
+      {url: `/kitchencalm/recipes`, method: 'GET', signal
+    },
+      options);
+    }
+  
 
 export const getGetKitchencalmRecipesQueryKey = () => {
-  return [`https://api.georgesheppard.dev/kitchencalm/recipes`] as const;
-};
+    return [`/kitchencalm/recipes`] as const;
+    }
 
-export const getGetKitchencalmRecipesQueryOptions = <
-  TData = Awaited<ReturnType<typeof getKitchencalmRecipes>>,
-  TError = AxiosError<GetKitchencalmRecipes401 | GetKitchencalmRecipes500>,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof getKitchencalmRecipes>>,
-    TError,
-    TData
-  >;
-  axios?: AxiosRequestConfig;
-}) => {
-  const { query: queryOptions, axios: axiosOptions } = options ?? {};
+    
+export const getGetKitchencalmRecipesQueryOptions = <TData = Awaited<ReturnType<typeof getKitchencalmRecipes>>, TError = GetKitchencalmRecipes401 | GetKitchencalmRecipes500>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmRecipes>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+) => {
 
-  const queryKey = queryOptions?.queryKey ?? getGetKitchencalmRecipesQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getKitchencalmRecipes>>
-  > = ({ signal }) => getKitchencalmRecipes({ signal, ...axiosOptions });
+  const queryKey =  queryOptions?.queryKey ?? getGetKitchencalmRecipesQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getKitchencalmRecipes>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type GetKitchencalmRecipesQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getKitchencalmRecipes>>
->;
-export type GetKitchencalmRecipesQueryError = AxiosError<
-  GetKitchencalmRecipes401 | GetKitchencalmRecipes500
->;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getKitchencalmRecipes>>> = ({ signal }) => getKitchencalmRecipes(requestOptions, signal);
 
-export const useGetKitchencalmRecipes = <
-  TData = Awaited<ReturnType<typeof getKitchencalmRecipes>>,
-  TError = AxiosError<GetKitchencalmRecipes401 | GetKitchencalmRecipes500>,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof getKitchencalmRecipes>>,
-    TError,
-    TData
-  >;
-  axios?: AxiosRequestConfig;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetKitchencalmRecipesQueryOptions(options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
 
-  query.queryKey = queryOptions.queryKey;
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmRecipes>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetKitchencalmRecipesQueryResult = NonNullable<Awaited<ReturnType<typeof getKitchencalmRecipes>>>
+export type GetKitchencalmRecipesQueryError = GetKitchencalmRecipes401 | GetKitchencalmRecipes500
+
+export const useGetKitchencalmRecipes = <TData = Awaited<ReturnType<typeof getKitchencalmRecipes>>, TError = GetKitchencalmRecipes401 | GetKitchencalmRecipes500>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmRecipes>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetKitchencalmRecipesQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
+
+
+
 
 /**
  * Search recipes by name, description, ingredients, or instructions
  */
 export const getKitchencalmRecipesSearch = (
-  params: GetKitchencalmRecipesSearchParams,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<GetKitchencalmRecipesSearch200>> => {
-  return axios.get(
-    `https://api.georgesheppard.dev/kitchencalm/recipes/search`,
-    {
-      ...options,
-      params: { ...params, ...options?.params },
+    params: GetKitchencalmRecipesSearchParams,
+ options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return axiosInstance<GetKitchencalmRecipesSearch200>(
+      {url: `/kitchencalm/recipes/search`, method: 'GET',
+        params, signal
     },
-  );
-};
+      options);
+    }
+  
 
-export const getGetKitchencalmRecipesSearchQueryKey = (
-  params: GetKitchencalmRecipesSearchParams,
+export const getGetKitchencalmRecipesSearchQueryKey = (params: GetKitchencalmRecipesSearchParams,) => {
+    return [`/kitchencalm/recipes/search`, ...(params ? [params]: [])] as const;
+    }
+
+    
+export const getGetKitchencalmRecipesSearchQueryOptions = <TData = Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>, TError = GetKitchencalmRecipesSearch400 | GetKitchencalmRecipesSearch401 | GetKitchencalmRecipesSearch500>(params: GetKitchencalmRecipesSearchParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
 ) => {
-  return [
-    `https://api.georgesheppard.dev/kitchencalm/recipes/search`,
-    ...(params ? [params] : []),
-  ] as const;
-};
 
-export const getGetKitchencalmRecipesSearchQueryOptions = <
-  TData = Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>,
-  TError = AxiosError<
-    | GetKitchencalmRecipesSearch400
-    | GetKitchencalmRecipesSearch401
-    | GetKitchencalmRecipesSearch500
-  >,
->(
-  params: GetKitchencalmRecipesSearchParams,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-) => {
-  const { query: queryOptions, axios: axiosOptions } = options ?? {};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getGetKitchencalmRecipesSearchQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getGetKitchencalmRecipesSearchQueryKey(params);
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>
-  > = ({ signal }) =>
-    getKitchencalmRecipesSearch(params, { signal, ...axiosOptions });
+  
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>> = ({ signal }) => getKitchencalmRecipesSearch(params, requestOptions, signal);
 
-export type GetKitchencalmRecipesSearchQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>
->;
-export type GetKitchencalmRecipesSearchQueryError = AxiosError<
-  | GetKitchencalmRecipesSearch400
-  | GetKitchencalmRecipesSearch401
-  | GetKitchencalmRecipesSearch500
->;
+      
 
-export const useGetKitchencalmRecipesSearch = <
-  TData = Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>,
-  TError = AxiosError<
-    | GetKitchencalmRecipesSearch400
-    | GetKitchencalmRecipesSearch401
-    | GetKitchencalmRecipesSearch500
-  >,
->(
-  params: GetKitchencalmRecipesSearchParams,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetKitchencalmRecipesSearchQueryOptions(
-    params,
-    options,
-  );
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>, TError, TData> & { queryKey: QueryKey }
+}
 
-  query.queryKey = queryOptions.queryKey;
+export type GetKitchencalmRecipesSearchQueryResult = NonNullable<Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>>
+export type GetKitchencalmRecipesSearchQueryError = GetKitchencalmRecipesSearch400 | GetKitchencalmRecipesSearch401 | GetKitchencalmRecipesSearch500
+
+export const useGetKitchencalmRecipesSearch = <TData = Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>, TError = GetKitchencalmRecipesSearch400 | GetKitchencalmRecipesSearch401 | GetKitchencalmRecipesSearch500>(
+ params: GetKitchencalmRecipesSearchParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetKitchencalmRecipesSearchQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
+
+
+
 
 /**
  * Delete a recipe for the authenticated user
  */
 export const deleteKitchencalmRecipesUuid = (
-  uuid: string,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<DeleteKitchencalmRecipesUuid200>> => {
-  return axios.delete(
-    `https://api.georgesheppard.dev/kitchencalm/recipes/${uuid}`,
-    options,
-  );
-};
+    uuid: string,
+ options?: SecondParameter<typeof axiosInstance>,) => {
+      
+      
+      return axiosInstance<DeleteKitchencalmRecipesUuid200>(
+      {url: `/kitchencalm/recipes/${uuid}`, method: 'DELETE'
+    },
+      options);
+    }
+  
 
-export const getDeleteKitchencalmRecipesUuidMutationOptions = <
-  TError = AxiosError<
-    DeleteKitchencalmRecipesUuid401 | DeleteKitchencalmRecipesUuid500
-  >,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>,
-    TError,
-    { uuid: string },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>,
-  TError,
-  { uuid: string },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>,
-    { uuid: string }
-  > = (props) => {
-    const { uuid } = props ?? {};
+export const getDeleteKitchencalmRecipesUuidMutationOptions = <TError = DeleteKitchencalmRecipesUuid401 | DeleteKitchencalmRecipesUuid500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>, TError,{uuid: string}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>, TError,{uuid: string}, TContext> => {
+const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return deleteKitchencalmRecipesUuid(uuid, axiosOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type DeleteKitchencalmRecipesUuidMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>
->;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>, {uuid: string}> = (props) => {
+          const {uuid} = props ?? {};
 
-export type DeleteKitchencalmRecipesUuidMutationError = AxiosError<
-  DeleteKitchencalmRecipesUuid401 | DeleteKitchencalmRecipesUuid500
->;
+          return  deleteKitchencalmRecipesUuid(uuid,requestOptions)
+        }
 
-export const useDeleteKitchencalmRecipesUuid = <
-  TError = AxiosError<
-    DeleteKitchencalmRecipesUuid401 | DeleteKitchencalmRecipesUuid500
-  >,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>,
-    TError,
-    { uuid: string },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>,
-  TError,
-  { uuid: string },
-  TContext
-> => {
-  const mutationOptions =
-    getDeleteKitchencalmRecipesUuidMutationOptions(options);
+        
 
-  return useMutation(mutationOptions);
-};
 
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DeleteKitchencalmRecipesUuidMutationResult = NonNullable<Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>>
+    
+    export type DeleteKitchencalmRecipesUuidMutationError = DeleteKitchencalmRecipesUuid401 | DeleteKitchencalmRecipesUuid500
+
+    export const useDeleteKitchencalmRecipesUuid = <TError = DeleteKitchencalmRecipesUuid401 | DeleteKitchencalmRecipesUuid500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>, TError,{uuid: string}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>,
+        TError,
+        {uuid: string},
+        TContext
+      > => {
+
+      const mutationOptions = getDeleteKitchencalmRecipesUuidMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
 /**
  * Get the meal plan for the authenticated user
  */
 export const getKitchencalmMealPlan = (
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<MealPlan>> => {
-  return axios.get(
-    `https://api.georgesheppard.dev/kitchencalm/meal-plan`,
-    options,
-  );
-};
+    
+ options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return axiosInstance<MealPlan>(
+      {url: `/kitchencalm/meal-plan`, method: 'GET', signal
+    },
+      options);
+    }
+  
 
 export const getGetKitchencalmMealPlanQueryKey = () => {
-  return [`https://api.georgesheppard.dev/kitchencalm/meal-plan`] as const;
-};
+    return [`/kitchencalm/meal-plan`] as const;
+    }
 
-export const getGetKitchencalmMealPlanQueryOptions = <
-  TData = Awaited<ReturnType<typeof getKitchencalmMealPlan>>,
-  TError = AxiosError<GetKitchencalmMealPlan401 | GetKitchencalmMealPlan500>,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof getKitchencalmMealPlan>>,
-    TError,
-    TData
-  >;
-  axios?: AxiosRequestConfig;
-}) => {
-  const { query: queryOptions, axios: axiosOptions } = options ?? {};
+    
+export const getGetKitchencalmMealPlanQueryOptions = <TData = Awaited<ReturnType<typeof getKitchencalmMealPlan>>, TError = GetKitchencalmMealPlan401 | GetKitchencalmMealPlan500>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmMealPlan>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+) => {
 
-  const queryKey =
-    queryOptions?.queryKey ?? getGetKitchencalmMealPlanQueryKey();
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getKitchencalmMealPlan>>
-  > = ({ signal }) => getKitchencalmMealPlan({ signal, ...axiosOptions });
+  const queryKey =  queryOptions?.queryKey ?? getGetKitchencalmMealPlanQueryKey();
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getKitchencalmMealPlan>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type GetKitchencalmMealPlanQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getKitchencalmMealPlan>>
->;
-export type GetKitchencalmMealPlanQueryError = AxiosError<
-  GetKitchencalmMealPlan401 | GetKitchencalmMealPlan500
->;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getKitchencalmMealPlan>>> = ({ signal }) => getKitchencalmMealPlan(requestOptions, signal);
 
-export const useGetKitchencalmMealPlan = <
-  TData = Awaited<ReturnType<typeof getKitchencalmMealPlan>>,
-  TError = AxiosError<GetKitchencalmMealPlan401 | GetKitchencalmMealPlan500>,
->(options?: {
-  query?: UseQueryOptions<
-    Awaited<ReturnType<typeof getKitchencalmMealPlan>>,
-    TError,
-    TData
-  >;
-  axios?: AxiosRequestConfig;
-}): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetKitchencalmMealPlanQueryOptions(options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
 
-  query.queryKey = queryOptions.queryKey;
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmMealPlan>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetKitchencalmMealPlanQueryResult = NonNullable<Awaited<ReturnType<typeof getKitchencalmMealPlan>>>
+export type GetKitchencalmMealPlanQueryError = GetKitchencalmMealPlan401 | GetKitchencalmMealPlan500
+
+export const useGetKitchencalmMealPlan = <TData = Awaited<ReturnType<typeof getKitchencalmMealPlan>>, TError = GetKitchencalmMealPlan401 | GetKitchencalmMealPlan500>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmMealPlan>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetKitchencalmMealPlanQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
+
+
+
 
 /**
  * Update the meal plan for the authenticated user
  */
 export const putKitchencalmMealPlan = (
-  mealPlan: MealPlan,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<PutKitchencalmMealPlan200>> => {
-  return axios.put(
-    `https://api.georgesheppard.dev/kitchencalm/meal-plan`,
-    mealPlan,
-    options,
-  );
-};
+    mealPlan: MealPlan,
+ options?: SecondParameter<typeof axiosInstance>,) => {
+      
+      
+      return axiosInstance<PutKitchencalmMealPlan200>(
+      {url: `/kitchencalm/meal-plan`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: mealPlan
+    },
+      options);
+    }
+  
 
-export const getPutKitchencalmMealPlanMutationOptions = <
-  TError = AxiosError<
-    | PutKitchencalmMealPlan400
-    | PutKitchencalmMealPlan401
-    | PutKitchencalmMealPlan500
-  >,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putKitchencalmMealPlan>>,
-    TError,
-    { data: MealPlan },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof putKitchencalmMealPlan>>,
-  TError,
-  { data: MealPlan },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putKitchencalmMealPlan>>,
-    { data: MealPlan }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getPutKitchencalmMealPlanMutationOptions = <TError = PutKitchencalmMealPlan400 | PutKitchencalmMealPlan401 | PutKitchencalmMealPlan500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putKitchencalmMealPlan>>, TError,{data: MealPlan}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof putKitchencalmMealPlan>>, TError,{data: MealPlan}, TContext> => {
+const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return putKitchencalmMealPlan(data, axiosOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PutKitchencalmMealPlanMutationResult = NonNullable<
-  Awaited<ReturnType<typeof putKitchencalmMealPlan>>
->;
-export type PutKitchencalmMealPlanMutationBody = MealPlan;
-export type PutKitchencalmMealPlanMutationError = AxiosError<
-  | PutKitchencalmMealPlan400
-  | PutKitchencalmMealPlan401
-  | PutKitchencalmMealPlan500
->;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof putKitchencalmMealPlan>>, {data: MealPlan}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePutKitchencalmMealPlan = <
-  TError = AxiosError<
-    | PutKitchencalmMealPlan400
-    | PutKitchencalmMealPlan401
-    | PutKitchencalmMealPlan500
-  >,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putKitchencalmMealPlan>>,
-    TError,
-    { data: MealPlan },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof putKitchencalmMealPlan>>,
-  TError,
-  { data: MealPlan },
-  TContext
-> => {
-  const mutationOptions = getPutKitchencalmMealPlanMutationOptions(options);
+          return  putKitchencalmMealPlan(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
+        
 
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PutKitchencalmMealPlanMutationResult = NonNullable<Awaited<ReturnType<typeof putKitchencalmMealPlan>>>
+    export type PutKitchencalmMealPlanMutationBody = MealPlan
+    export type PutKitchencalmMealPlanMutationError = PutKitchencalmMealPlan400 | PutKitchencalmMealPlan401 | PutKitchencalmMealPlan500
+
+    export const usePutKitchencalmMealPlan = <TError = PutKitchencalmMealPlan400 | PutKitchencalmMealPlan401 | PutKitchencalmMealPlan500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putKitchencalmMealPlan>>, TError,{data: MealPlan}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof putKitchencalmMealPlan>>,
+        TError,
+        {data: MealPlan},
+        TContext
+      > => {
+
+      const mutationOptions = getPutKitchencalmMealPlanMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
 /**
  * Get aggregated shopping list from recipes in the meal plan, optionally filtered by date range
  */
 export const getKitchencalmShoppingList = (
-  params?: GetKitchencalmShoppingListParams,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<GetKitchencalmShoppingList200Item[]>> => {
-  return axios.get(`https://api.georgesheppard.dev/kitchencalm/shopping-list`, {
-    ...options,
-    params: { ...params, ...options?.params },
-  });
-};
-
-export const getGetKitchencalmShoppingListQueryKey = (
-  params?: GetKitchencalmShoppingListParams,
+    params?: GetKitchencalmShoppingListParams,
+ options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
 ) => {
-  return [
-    `https://api.georgesheppard.dev/kitchencalm/shopping-list`,
-    ...(params ? [params] : []),
-  ] as const;
-};
+      
+      
+      return axiosInstance<GetKitchencalmShoppingList200Item[]>(
+      {url: `/kitchencalm/shopping-list`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
 
-export const getGetKitchencalmShoppingListQueryOptions = <
-  TData = Awaited<ReturnType<typeof getKitchencalmShoppingList>>,
-  TError = AxiosError<
-    GetKitchencalmShoppingList401 | GetKitchencalmShoppingList500
-  >,
->(
-  params?: GetKitchencalmShoppingListParams,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getKitchencalmShoppingList>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
+export const getGetKitchencalmShoppingListQueryKey = (params?: GetKitchencalmShoppingListParams,) => {
+    return [`/kitchencalm/shopping-list`, ...(params ? [params]: [])] as const;
+    }
+
+    
+export const getGetKitchencalmShoppingListQueryOptions = <TData = Awaited<ReturnType<typeof getKitchencalmShoppingList>>, TError = GetKitchencalmShoppingList401 | GetKitchencalmShoppingList500>(params?: GetKitchencalmShoppingListParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmShoppingList>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
 ) => {
-  const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getGetKitchencalmShoppingListQueryKey(params);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<
-    Awaited<ReturnType<typeof getKitchencalmShoppingList>>
-  > = ({ signal }) =>
-    getKitchencalmShoppingList(params, { signal, ...axiosOptions });
+  const queryKey =  queryOptions?.queryKey ?? getGetKitchencalmShoppingListQueryKey(params);
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getKitchencalmShoppingList>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type GetKitchencalmShoppingListQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getKitchencalmShoppingList>>
->;
-export type GetKitchencalmShoppingListQueryError = AxiosError<
-  GetKitchencalmShoppingList401 | GetKitchencalmShoppingList500
->;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getKitchencalmShoppingList>>> = ({ signal }) => getKitchencalmShoppingList(params, requestOptions, signal);
 
-export const useGetKitchencalmShoppingList = <
-  TData = Awaited<ReturnType<typeof getKitchencalmShoppingList>>,
-  TError = AxiosError<
-    GetKitchencalmShoppingList401 | GetKitchencalmShoppingList500
-  >,
->(
-  params?: GetKitchencalmShoppingListParams,
-  options?: {
-    query?: UseQueryOptions<
-      Awaited<ReturnType<typeof getKitchencalmShoppingList>>,
-      TError,
-      TData
-    >;
-    axios?: AxiosRequestConfig;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetKitchencalmShoppingListQueryOptions(
-    params,
-    options,
-  );
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
-    queryKey: QueryKey;
-  };
+      
 
-  query.queryKey = queryOptions.queryKey;
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmShoppingList>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetKitchencalmShoppingListQueryResult = NonNullable<Awaited<ReturnType<typeof getKitchencalmShoppingList>>>
+export type GetKitchencalmShoppingListQueryError = GetKitchencalmShoppingList401 | GetKitchencalmShoppingList500
+
+export const useGetKitchencalmShoppingList = <TData = Awaited<ReturnType<typeof getKitchencalmShoppingList>>, TError = GetKitchencalmShoppingList401 | GetKitchencalmShoppingList500>(
+ params?: GetKitchencalmShoppingListParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmShoppingList>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetKitchencalmShoppingListQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
+
+
+
 
 /**
  * Generate a signed GET URL for downloading files from S3
  */
 export const postKitchencalmS3SignedUrl = (
-  postKitchencalmS3SignedUrlBody: PostKitchencalmS3SignedUrlBody,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<PostKitchencalmS3SignedUrl200>> => {
-  return axios.post(
-    `https://api.georgesheppard.dev/kitchencalm/s3/signed-url`,
-    postKitchencalmS3SignedUrlBody,
-    options,
-  );
-};
+    postKitchencalmS3SignedUrlBody: PostKitchencalmS3SignedUrlBody,
+ options?: SecondParameter<typeof axiosInstance>,) => {
+      
+      
+      return axiosInstance<PostKitchencalmS3SignedUrl200>(
+      {url: `/kitchencalm/s3/signed-url`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: postKitchencalmS3SignedUrlBody
+    },
+      options);
+    }
+  
 
-export const getPostKitchencalmS3SignedUrlMutationOptions = <
-  TError = AxiosError<
-    PostKitchencalmS3SignedUrl400 | PostKitchencalmS3SignedUrl500
-  >,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>,
-    TError,
-    { data: PostKitchencalmS3SignedUrlBody },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>,
-  TError,
-  { data: PostKitchencalmS3SignedUrlBody },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>,
-    { data: PostKitchencalmS3SignedUrlBody }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getPostKitchencalmS3SignedUrlMutationOptions = <TError = PostKitchencalmS3SignedUrl400 | PostKitchencalmS3SignedUrl500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>, TError,{data: PostKitchencalmS3SignedUrlBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>, TError,{data: PostKitchencalmS3SignedUrlBody}, TContext> => {
+const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return postKitchencalmS3SignedUrl(data, axiosOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PostKitchencalmS3SignedUrlMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>
->;
-export type PostKitchencalmS3SignedUrlMutationBody =
-  PostKitchencalmS3SignedUrlBody;
-export type PostKitchencalmS3SignedUrlMutationError = AxiosError<
-  PostKitchencalmS3SignedUrl400 | PostKitchencalmS3SignedUrl500
->;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>, {data: PostKitchencalmS3SignedUrlBody}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePostKitchencalmS3SignedUrl = <
-  TError = AxiosError<
-    PostKitchencalmS3SignedUrl400 | PostKitchencalmS3SignedUrl500
-  >,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>,
-    TError,
-    { data: PostKitchencalmS3SignedUrlBody },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>,
-  TError,
-  { data: PostKitchencalmS3SignedUrlBody },
-  TContext
-> => {
-  const mutationOptions = getPostKitchencalmS3SignedUrlMutationOptions(options);
+          return  postKitchencalmS3SignedUrl(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
+        
 
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PostKitchencalmS3SignedUrlMutationResult = NonNullable<Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>>
+    export type PostKitchencalmS3SignedUrlMutationBody = PostKitchencalmS3SignedUrlBody
+    export type PostKitchencalmS3SignedUrlMutationError = PostKitchencalmS3SignedUrl400 | PostKitchencalmS3SignedUrl500
+
+    export const usePostKitchencalmS3SignedUrl = <TError = PostKitchencalmS3SignedUrl400 | PostKitchencalmS3SignedUrl500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>, TError,{data: PostKitchencalmS3SignedUrlBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>,
+        TError,
+        {data: PostKitchencalmS3SignedUrlBody},
+        TContext
+      > => {
+
+      const mutationOptions = getPostKitchencalmS3SignedUrlMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
 /**
  * Generate a signed PUT URL for uploading files to S3
  */
 export const postKitchencalmS3Upload = (
-  postKitchencalmS3UploadBody: PostKitchencalmS3UploadBody,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<PostKitchencalmS3Upload200>> => {
-  return axios.post(
-    `https://api.georgesheppard.dev/kitchencalm/s3/upload`,
-    postKitchencalmS3UploadBody,
-    options,
-  );
-};
+    postKitchencalmS3UploadBody: PostKitchencalmS3UploadBody,
+ options?: SecondParameter<typeof axiosInstance>,) => {
+      
+      
+      return axiosInstance<PostKitchencalmS3Upload200>(
+      {url: `/kitchencalm/s3/upload`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: postKitchencalmS3UploadBody
+    },
+      options);
+    }
+  
 
-export const getPostKitchencalmS3UploadMutationOptions = <
-  TError = AxiosError<
-    | PostKitchencalmS3Upload400
-    | PostKitchencalmS3Upload401
-    | PostKitchencalmS3Upload500
-  >,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postKitchencalmS3Upload>>,
-    TError,
-    { data: PostKitchencalmS3UploadBody },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postKitchencalmS3Upload>>,
-  TError,
-  { data: PostKitchencalmS3UploadBody },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postKitchencalmS3Upload>>,
-    { data: PostKitchencalmS3UploadBody }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getPostKitchencalmS3UploadMutationOptions = <TError = PostKitchencalmS3Upload400 | PostKitchencalmS3Upload401 | PostKitchencalmS3Upload500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3Upload>>, TError,{data: PostKitchencalmS3UploadBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3Upload>>, TError,{data: PostKitchencalmS3UploadBody}, TContext> => {
+const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return postKitchencalmS3Upload(data, axiosOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PostKitchencalmS3UploadMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postKitchencalmS3Upload>>
->;
-export type PostKitchencalmS3UploadMutationBody = PostKitchencalmS3UploadBody;
-export type PostKitchencalmS3UploadMutationError = AxiosError<
-  | PostKitchencalmS3Upload400
-  | PostKitchencalmS3Upload401
-  | PostKitchencalmS3Upload500
->;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postKitchencalmS3Upload>>, {data: PostKitchencalmS3UploadBody}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePostKitchencalmS3Upload = <
-  TError = AxiosError<
-    | PostKitchencalmS3Upload400
-    | PostKitchencalmS3Upload401
-    | PostKitchencalmS3Upload500
-  >,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postKitchencalmS3Upload>>,
-    TError,
-    { data: PostKitchencalmS3UploadBody },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postKitchencalmS3Upload>>,
-  TError,
-  { data: PostKitchencalmS3UploadBody },
-  TContext
-> => {
-  const mutationOptions = getPostKitchencalmS3UploadMutationOptions(options);
+          return  postKitchencalmS3Upload(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
+        
 
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PostKitchencalmS3UploadMutationResult = NonNullable<Awaited<ReturnType<typeof postKitchencalmS3Upload>>>
+    export type PostKitchencalmS3UploadMutationBody = PostKitchencalmS3UploadBody
+    export type PostKitchencalmS3UploadMutationError = PostKitchencalmS3Upload400 | PostKitchencalmS3Upload401 | PostKitchencalmS3Upload500
+
+    export const usePostKitchencalmS3Upload = <TError = PostKitchencalmS3Upload400 | PostKitchencalmS3Upload401 | PostKitchencalmS3Upload500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3Upload>>, TError,{data: PostKitchencalmS3UploadBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof postKitchencalmS3Upload>>,
+        TError,
+        {data: PostKitchencalmS3UploadBody},
+        TContext
+      > => {
+
+      const mutationOptions = getPostKitchencalmS3UploadMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
 /**
  * Delete a file from S3
  */
 export const postKitchencalmS3Delete = (
-  postKitchencalmS3DeleteBody: PostKitchencalmS3DeleteBody,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<PostKitchencalmS3Delete200>> => {
-  return axios.post(
-    `https://api.georgesheppard.dev/kitchencalm/s3/delete`,
-    postKitchencalmS3DeleteBody,
-    options,
-  );
-};
+    postKitchencalmS3DeleteBody: PostKitchencalmS3DeleteBody,
+ options?: SecondParameter<typeof axiosInstance>,) => {
+      
+      
+      return axiosInstance<PostKitchencalmS3Delete200>(
+      {url: `/kitchencalm/s3/delete`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: postKitchencalmS3DeleteBody
+    },
+      options);
+    }
+  
 
-export const getPostKitchencalmS3DeleteMutationOptions = <
-  TError = AxiosError<PostKitchencalmS3Delete400 | PostKitchencalmS3Delete500>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postKitchencalmS3Delete>>,
-    TError,
-    { data: PostKitchencalmS3DeleteBody },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postKitchencalmS3Delete>>,
-  TError,
-  { data: PostKitchencalmS3DeleteBody },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postKitchencalmS3Delete>>,
-    { data: PostKitchencalmS3DeleteBody }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getPostKitchencalmS3DeleteMutationOptions = <TError = PostKitchencalmS3Delete400 | PostKitchencalmS3Delete500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3Delete>>, TError,{data: PostKitchencalmS3DeleteBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3Delete>>, TError,{data: PostKitchencalmS3DeleteBody}, TContext> => {
+const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return postKitchencalmS3Delete(data, axiosOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PostKitchencalmS3DeleteMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postKitchencalmS3Delete>>
->;
-export type PostKitchencalmS3DeleteMutationBody = PostKitchencalmS3DeleteBody;
-export type PostKitchencalmS3DeleteMutationError = AxiosError<
-  PostKitchencalmS3Delete400 | PostKitchencalmS3Delete500
->;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postKitchencalmS3Delete>>, {data: PostKitchencalmS3DeleteBody}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePostKitchencalmS3Delete = <
-  TError = AxiosError<PostKitchencalmS3Delete400 | PostKitchencalmS3Delete500>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postKitchencalmS3Delete>>,
-    TError,
-    { data: PostKitchencalmS3DeleteBody },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postKitchencalmS3Delete>>,
-  TError,
-  { data: PostKitchencalmS3DeleteBody },
-  TContext
-> => {
-  const mutationOptions = getPostKitchencalmS3DeleteMutationOptions(options);
+          return  postKitchencalmS3Delete(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
+        
 
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PostKitchencalmS3DeleteMutationResult = NonNullable<Awaited<ReturnType<typeof postKitchencalmS3Delete>>>
+    export type PostKitchencalmS3DeleteMutationBody = PostKitchencalmS3DeleteBody
+    export type PostKitchencalmS3DeleteMutationError = PostKitchencalmS3Delete400 | PostKitchencalmS3Delete500
+
+    export const usePostKitchencalmS3Delete = <TError = PostKitchencalmS3Delete400 | PostKitchencalmS3Delete500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3Delete>>, TError,{data: PostKitchencalmS3DeleteBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof postKitchencalmS3Delete>>,
+        TError,
+        {data: PostKitchencalmS3DeleteBody},
+        TContext
+      > => {
+
+      const mutationOptions = getPostKitchencalmS3DeleteMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
 /**
  * Parse natural language recipe text and save to the user account
  */
 export const postKitchencalmParseRecipe = (
-  postKitchencalmParseRecipeBody: PostKitchencalmParseRecipeBody,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<Recipe>> => {
-  return axios.post(
-    `https://api.georgesheppard.dev/kitchencalm/parse-recipe`,
-    postKitchencalmParseRecipeBody,
-    options,
-  );
-};
+    postKitchencalmParseRecipeBody: PostKitchencalmParseRecipeBody,
+ options?: SecondParameter<typeof axiosInstance>,) => {
+      
+      
+      return axiosInstance<Recipe>(
+      {url: `/kitchencalm/parse-recipe`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: postKitchencalmParseRecipeBody
+    },
+      options);
+    }
+  
 
-export const getPostKitchencalmParseRecipeMutationOptions = <
-  TError = AxiosError<
-    | PostKitchencalmParseRecipe400
-    | PostKitchencalmParseRecipe401
-    | PostKitchencalmParseRecipe500
-  >,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postKitchencalmParseRecipe>>,
-    TError,
-    { data: PostKitchencalmParseRecipeBody },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postKitchencalmParseRecipe>>,
-  TError,
-  { data: PostKitchencalmParseRecipeBody },
-  TContext
-> => {
-  const { mutation: mutationOptions, axios: axiosOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postKitchencalmParseRecipe>>,
-    { data: PostKitchencalmParseRecipeBody }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getPostKitchencalmParseRecipeMutationOptions = <TError = PostKitchencalmParseRecipe400 | PostKitchencalmParseRecipe401 | PostKitchencalmParseRecipe500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmParseRecipe>>, TError,{data: PostKitchencalmParseRecipeBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmParseRecipe>>, TError,{data: PostKitchencalmParseRecipeBody}, TContext> => {
+const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return postKitchencalmParseRecipe(data, axiosOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PostKitchencalmParseRecipeMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postKitchencalmParseRecipe>>
->;
-export type PostKitchencalmParseRecipeMutationBody =
-  PostKitchencalmParseRecipeBody;
-export type PostKitchencalmParseRecipeMutationError = AxiosError<
-  | PostKitchencalmParseRecipe400
-  | PostKitchencalmParseRecipe401
-  | PostKitchencalmParseRecipe500
->;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postKitchencalmParseRecipe>>, {data: PostKitchencalmParseRecipeBody}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePostKitchencalmParseRecipe = <
-  TError = AxiosError<
-    | PostKitchencalmParseRecipe400
-    | PostKitchencalmParseRecipe401
-    | PostKitchencalmParseRecipe500
-  >,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postKitchencalmParseRecipe>>,
-    TError,
-    { data: PostKitchencalmParseRecipeBody },
-    TContext
-  >;
-  axios?: AxiosRequestConfig;
-}): UseMutationResult<
-  Awaited<ReturnType<typeof postKitchencalmParseRecipe>>,
-  TError,
-  { data: PostKitchencalmParseRecipeBody },
-  TContext
-> => {
-  const mutationOptions = getPostKitchencalmParseRecipeMutationOptions(options);
+          return  postKitchencalmParseRecipe(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PostKitchencalmParseRecipeMutationResult = NonNullable<Awaited<ReturnType<typeof postKitchencalmParseRecipe>>>
+    export type PostKitchencalmParseRecipeMutationBody = PostKitchencalmParseRecipeBody
+    export type PostKitchencalmParseRecipeMutationError = PostKitchencalmParseRecipe400 | PostKitchencalmParseRecipe401 | PostKitchencalmParseRecipe500
+
+    export const usePostKitchencalmParseRecipe = <TError = PostKitchencalmParseRecipe400 | PostKitchencalmParseRecipe401 | PostKitchencalmParseRecipe500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmParseRecipe>>, TError,{data: PostKitchencalmParseRecipeBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationResult<
+        Awaited<ReturnType<typeof postKitchencalmParseRecipe>>,
+        TError,
+        {data: PostKitchencalmParseRecipeBody},
+        TContext
+      > => {
+
+      const mutationOptions = getPostKitchencalmParseRecipeMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    

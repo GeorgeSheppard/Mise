@@ -5,7 +5,11 @@
       "Bash(yarn lint:*)",
       "Bash(yarn commit-tests)",
       "Bash(yarn ts:*)",
-      "Bash(yarn install)"
+      "Bash(yarn install)",
+      "Bash(yarn generate:api)",
+      "Bash(curl:*)",
+      "Bash(yarn remove:*)",
+      "Bash(yarn build)"
     ]
   }
 }
