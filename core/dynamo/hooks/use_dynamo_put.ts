@@ -1,4 +1,4 @@
-import { IRecipe, IRecipes } from "../../../core/types/recipes";
+import { IRecipe } from "../../../core/types/recipes";
 import {
   IAddOrUpdatePlan,
   addOrUpdatePlan,
@@ -10,6 +10,7 @@ import {
   getRecipesQueryKey,
   getMealPlanQueryKey,
 } from "../../../client/hooks";
+import { GetKitchencalmRecipes200 } from "../../../client/generated/hooks";
 import { useQueryClient } from "@tanstack/react-query";
 
 const useMutateRecipeInCache = () => {
@@ -17,13 +18,13 @@ const useMutateRecipeInCache = () => {
   const recipesKey = getRecipesQueryKey();
 
   return (recipe: IRecipe) => {
-    const previousRecipes: IRecipes | undefined =
-      queryClient.getQueryData(recipesKey);
+    const previousRecipes = queryClient.getQueryData<GetKitchencalmRecipes200>(recipesKey);
 
     if (previousRecipes) {
-      const updatedRecipes = new Map(previousRecipes);
-      updatedRecipes.set(recipe.uuid, recipe);
-      queryClient.setQueryData(recipesKey, updatedRecipes);
+      queryClient.setQueryData(recipesKey, {
+        ...previousRecipes,
+        [recipe.uuid]: recipe,
+      });
     }
 
     return {
@@ -39,9 +40,7 @@ const useMutateMealPlanInCache = () => {
   return (newMealPlan: IMealPlan) => {
     const previousMealPlan = queryClient.getQueryData(mealPlanKey);
 
-    // Wrap in { data: ... } to match the AxiosResponse shape that
-    // useGetMealPlan's select function expects
-    queryClient.setQueryData(mealPlanKey, { data: newMealPlan });
+    queryClient.setQueryData(mealPlanKey, newMealPlan);
 
     return {
       undo: () => {
@@ -61,8 +60,7 @@ export const usePutMealPlanToDynamo = () => {
   return {
     ...updateMealPlan,
     mutate: (update: IAddOrUpdatePlan) => {
-      const cachedData = queryClient.getQueryData(mealPlanKey) as any;
-      const currentMealPlan = cachedData?.data as IMealPlan | undefined;
+      const currentMealPlan = queryClient.getQueryData(mealPlanKey) as IMealPlan | undefined;
       if (!currentMealPlan || !Array.isArray(currentMealPlan)) throw new Error('Cannot modify empty meal plan')
       const updatedMealPlan = addOrUpdatePlan(currentMealPlan, update);
       mutate(updatedMealPlan);

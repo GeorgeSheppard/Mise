@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import { RecipeUuid } from "../../types/recipes";
 import { useAppSession } from "../../hooks/use_app_session";
 import { useQueryClient } from "@tanstack/react-query";
@@ -11,20 +10,20 @@ const useDeleteRecipeInCache = () => {
   const mealPlanKey = getMealPlanQueryKey();
 
   return (recipeId: RecipeUuid) => {
-    const previousRecipesCache = queryClient.getQueryData<AxiosResponse<GetKitchencalmRecipes200>>(recipesKey);
-    const previousMealPlanCache = queryClient.getQueryData<AxiosResponse<MealPlan>>(mealPlanKey);
+    const previousRecipesCache = queryClient.getQueryData<GetKitchencalmRecipes200>(recipesKey);
+    const previousMealPlanCache = queryClient.getQueryData<MealPlan>(mealPlanKey);
 
-    if (previousRecipesCache?.data) {
-      const { [recipeId]: _removed, ...remainingRecipes } = previousRecipesCache.data;
-      queryClient.setQueryData(recipesKey, { ...previousRecipesCache, data: remainingRecipes });
+    if (previousRecipesCache) {
+      const { [recipeId]: _removed, ...remainingRecipes } = previousRecipesCache;
+      queryClient.setQueryData(recipesKey, remainingRecipes);
     }
 
-    if (previousMealPlanCache?.data && Array.isArray(previousMealPlanCache.data)) {
-      const updatedMealPlan = previousMealPlanCache.data.map((item) => ({
+    if (previousMealPlanCache && Array.isArray(previousMealPlanCache)) {
+      const updatedMealPlan = previousMealPlanCache.map((item) => ({
         ...item,
         plan: item.plan.filter((r) => r.recipeId !== recipeId),
       }));
-      queryClient.setQueryData(mealPlanKey, { ...previousMealPlanCache, data: updatedMealPlan });
+      queryClient.setQueryData(mealPlanKey, updatedMealPlan);
     }
 
     return {
