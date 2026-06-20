@@ -5,6 +5,7 @@ import * as React from "react";
 import { AppLayout } from "../components/app-layout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useHydrateCacheFromIndexedDb } from "../core/storage/use_hydrate_cache_from_indexed_db";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,18 +27,28 @@ export interface IKitchenCalmProps {
   pageProps: any & { session: Session };
 }
 
-function KitchenCalm(props: IKitchenCalmProps) {
+function AppContent(props: IKitchenCalmProps) {
   const { Component } = props;
   const { session, ...pageProps } = props.pageProps;
 
+  // Seed the query cache from IndexedDB so recipes/meal plan can render
+  // instantly, before auth has resolved or the network request completes.
+  useHydrateCacheFromIndexedDb();
+
+  return (
+    <SessionProvider session={session}>
+      <AppLayout>
+        <Component {...pageProps} />
+      </AppLayout>
+    </SessionProvider>
+  );
+}
+
+function KitchenCalm(props: IKitchenCalmProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <SessionProvider session={session}>
-        <AppLayout>
-          <Component {...pageProps} />
-        </AppLayout>
-      </SessionProvider>
+      <AppContent {...props} />
     </QueryClientProvider>
   );
 }

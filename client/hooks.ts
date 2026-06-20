@@ -6,8 +6,11 @@
 
 import { UseQueryOptions, UseMutationOptions } from '@tanstack/react-query';
 import { AxiosError, AxiosRequestConfig } from 'axios';
+import { useEffect } from 'react';
 import { useAppSession } from '../core/hooks/use_app_session';
 import { IRecipe } from '../core/types/recipes';
+import { idbSet } from '../core/storage/indexed_db';
+import { RECIPES_CACHE_KEY, MEAL_PLAN_CACHE_KEY } from '../core/storage/cache_keys';
 import {
   useGetKitchencalmRecipes as useGetKitchencalmRecipesBase,
   useGetKitchencalmMealPlan as useGetKitchencalmMealPlanBase,
@@ -66,6 +69,12 @@ export const useGetRecipes = (
     },
   });
 
+  useEffect(() => {
+    if (query.data !== undefined) {
+      idbSet(RECIPES_CACHE_KEY, query.data);
+    }
+  }, [query.data]);
+
   return query;
 };
 
@@ -94,6 +103,12 @@ export const useGetMealPlan = (
       },
     },
   });
+
+  useEffect(() => {
+    if (query.data !== undefined) {
+      idbSet(MEAL_PLAN_CACHE_KEY, query.data);
+    }
+  }, [query.data]);
 
   return query;
 };

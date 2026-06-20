@@ -41,36 +41,42 @@ export function RecipeGrid({ recipeIds }: RecipeGridProps) {
 
   const hasRealRecipes = recipes && recipes.length > 0;
 
-  // Show empty state if not authenticated and session has finished loading
-  if (!session.loading && !session.isAuthenticated) {
-    return (
-      <div className="flex flex-col items-center justify-center gap-4 rounded-lg border border-dashed border-muted-foreground/25 bg-muted/50 px-4 py-12">
-        <div className="flex flex-col items-center gap-2">
-          <LogIn className="size-8 text-muted-foreground" />
-          <h3 className="text-lg font-semibold text-foreground">Sign in to view recipes</h3>
-          <p className="text-sm text-muted-foreground">
-            Create and manage your recipes after signing in.
-          </p>
+  // We already have recipe data (e.g. from the IndexedDB cache or a prior
+  // fetch), so render it straight away rather than waiting on the session
+  // to resolve - the session check below only matters when there's nothing
+  // to show yet.
+  if (!hasRealRecipes) {
+    // Show empty state if not authenticated and session has finished loading
+    if (!session.loading && !session.isAuthenticated) {
+      return (
+        <div className="flex flex-col items-center justify-center gap-4 rounded-lg border border-dashed border-muted-foreground/25 bg-muted/50 px-4 py-12">
+          <div className="flex flex-col items-center gap-2">
+            <LogIn className="size-8 text-muted-foreground" />
+            <h3 className="text-lg font-semibold text-foreground">Sign in to view recipes</h3>
+            <p className="text-sm text-muted-foreground">
+              Create and manage your recipes after signing in.
+            </p>
+          </div>
+          <Button
+            onClick={() => signIn("cognito")}
+            size="sm"
+          >
+            <LogIn className="size-4 mr-2" />
+            Sign in
+          </Button>
         </div>
-        <Button
-          onClick={() => signIn("cognito")}
-          size="sm"
-        >
-          <LogIn className="size-4 mr-2" />
-          Sign in
-        </Button>
-      </div>
-    );
-  }
+      );
+    }
 
-  if (isLoading) {
-    return (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {[1, 2, 3, 4].map((i) => (
-          <Skeleton key={i} className="h-48 rounded-xl" />
-        ))}
-      </div>
-    );
+    if (isLoading) {
+      return (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {[1, 2, 3, 4].map((i) => (
+            <Skeleton key={i} className="h-48 rounded-xl" />
+          ))}
+        </div>
+      );
+    }
   }
 
   return (
