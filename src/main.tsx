@@ -5,6 +5,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProvider } from "./auth/AuthProvider";
 import { App } from "./App";
+
+// Self-hosted fonts - only load weights we use (400, 500, 600, 700)
+import "@fontsource/dm-sans/400.css";
+import "@fontsource/dm-sans/500.css";
+import "@fontsource/dm-sans/600.css";
+import "@fontsource/dm-sans/700.css";
+import "@fontsource/dm-serif-display/400.css";
+
 import "@/styles/globals.css";
 
 const queryClient = new QueryClient({

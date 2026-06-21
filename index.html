@@ -5,13 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kitchen Calm</title>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Critical inline CSS for instant loading state -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #faf9f7;
+        color: #323130;
+      }
+      #root {
+        min-height: 100vh;
+      }
+      /* Prevent FOUC (Flash of Unstyled Content) */
+      #root:empty::before {
+        content: '';
+        display: block;
+        width: 40px;
+        height: 40px;
+        border: 3px solid #e6e4e1;
+        border-top-color: #8b7355;
+        border-radius: 50%;
+        margin: 40vh auto 0;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
