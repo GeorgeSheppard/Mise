@@ -35,12 +35,6 @@ export const useRecipes = () => {
   });
 };
 
-export const useRecipeIds = () => {
-  return useRecipesBase({
-    select: (data) => Array.from(data.keys()),
-  });
-};
-
 export const useRecipe = (recipeId?: RecipeUuid, enabled?: boolean) => {
   return useRecipesBase({
     select: (data) => {

@@ -337,7 +337,6 @@ export type PostApiRecommendationsAddEmail200 = PostApiRecommendationsAddEmail20
 export type PostApiRecommendationsAddEmailBodyRecurring = typeof PostApiRecommendationsAddEmailBodyRecurring[keyof typeof PostApiRecommendationsAddEmailBodyRecurring];
 
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PostApiRecommendationsAddEmailBodyRecurring = {
   true: 'true',
   false: 'false',
@@ -443,7 +442,6 @@ export interface Instruction {
 export type QuantityUnit = typeof QuantityUnit[keyof typeof QuantityUnit];
 
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export const QuantityUnit = {
   none: 'none',
   mL: 'mL',
@@ -516,7 +514,7 @@ export interface Recommendation {
 
 
 
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 
 

@@ -13,7 +13,6 @@ import {
   useGetKitchencalmShoppingList,
   GetKitchencalmShoppingList200Item,
 } from "../client/generated/hooks";
-import { useAppSession } from "../core/hooks/use_app_session";
 
 interface ShoppingListDialogProps {
   selectedDates: Set<string>;

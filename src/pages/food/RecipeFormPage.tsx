@@ -5,7 +5,7 @@ import { RecipeUuid } from "@/core/types/recipes";
 import { RecipeEditor } from "@/components/recipe-editor";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const NewRecipe = "newRecipe";
+export const NewRecipe = "newRecipe";
 
 const getDefaultRecipe = (uuid: string) => ({
   uuid,

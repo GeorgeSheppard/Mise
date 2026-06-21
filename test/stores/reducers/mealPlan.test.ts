@@ -4,7 +4,7 @@ import {
   buildAddRecipePayload,
   isoToTimestamp,
 } from "../../../core/meal_plan/meal_plan_utilities";
-import { IRecipe, Unit } from "../../../core/types/recipes";
+import { IRecipe } from "../../../core/types/recipes";
 
 // Helper to build a minimal IRecipe for testing
 function makeRecipe(overrides?: Partial<IRecipe>): IRecipe {

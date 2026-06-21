@@ -32,6 +32,7 @@ import {
  */
 export const useGetRecipes = (
   options?: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     query?: UseQueryOptions<any>;
     axios?: AxiosRequestConfig;
   }
@@ -60,6 +61,7 @@ export const useGetRecipes = (
  */
 export const useGetMealPlan = (
   options?: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     query?: UseQueryOptions<any>;
     axios?: AxiosRequestConfig;
   }

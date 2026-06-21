@@ -75,7 +75,6 @@ export default function useUploadToS3(props: IUseUploadToS3Props) {
       props.onStartUpload,
       props.onUploadError,
       props.onUploadFinished,
-      props.folder,
       props.makeKeyUnique,
       getUploadUrl,
       loading,

@@ -3,7 +3,8 @@
   "project": [
     "src/**/*.{ts,tsx}",
     "lib/**/*.{ts,tsx}",
-    "components/**/*.{ts,tsx}"
+    "components/**/*.{ts,tsx}",
+    "core/**/*.{ts,tsx}"
   ],
   "ignoreDependencies": [
     "@orval/core"
