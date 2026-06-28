@@ -28,7 +28,8 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        includePaths: [path.resolve(__dirname, "styles")],
+        api: "modern",
+        loadPaths: [path.resolve(__dirname, "styles")],
       },
     },
   },
