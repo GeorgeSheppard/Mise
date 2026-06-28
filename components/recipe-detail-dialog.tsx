@@ -8,26 +8,21 @@ import { RecipeActions } from "./recipe-actions";
 import { IRecipe } from "../core/types/recipes";
 import { iRecipeToRecipe } from "@/lib/adapters/recipe-adapter";
 import { useRecipeImage } from "@/lib/adapters/use-recipe-image";
-import type { Recipe } from "@/lib/recipe-data";
 
 interface RecipeDetailDialogProps {
   recipe: IRecipe | null;
-  testRecipe?: Recipe | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
 export function RecipeDetailDialog({
   recipe,
-  testRecipe,
   open,
   onOpenChange,
 }: RecipeDetailDialogProps) {
   const imageUrl = useRecipeImage(recipe?.images);
 
-  const v0Recipe = recipe
-    ? iRecipeToRecipe(recipe, imageUrl)
-    : testRecipe || null;
+  const v0Recipe = recipe ? iRecipeToRecipe(recipe, imageUrl) : null;
 
   if (!v0Recipe) return null;
 

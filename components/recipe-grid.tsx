@@ -6,12 +6,9 @@ import { useAuth } from "@/src/auth/AuthProvider";
 import { ConnectedRecipePreviewCard } from "./connected-recipe-preview-card";
 import { CreateRecipeCard } from "./create-recipe-card";
 import { RecipeDetailDialog } from "./recipe-detail-dialog";
-import { RecipePreviewCard } from "./recipe-preview-card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { allRecipes } from "@/lib/recipe-data";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
-import type { Recipe } from "@/lib/recipe-data";
 
 interface RecipeGridProps {
   recipeIds: RecipeUuid[];
@@ -22,9 +19,6 @@ export function RecipeGrid({ recipeIds }: RecipeGridProps) {
   const session = useAppSession();
   const { signIn } = useAuth();
   const [selectedRecipe, setSelectedRecipe] = useState<IRecipe | null>(null);
-  const [selectedTestRecipe, setSelectedTestRecipe] = useState<Recipe | null>(
-    null
-  );
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const recipesMap = new Map<RecipeUuid, IRecipe>();
@@ -36,7 +30,6 @@ export function RecipeGrid({ recipeIds }: RecipeGridProps) {
 
   const handleRecipeClick = (recipe: IRecipe) => {
     setSelectedRecipe(recipe);
-    setSelectedTestRecipe(null);
     setDialogOpen(true);
   };
 
@@ -83,35 +76,21 @@ export function RecipeGrid({ recipeIds }: RecipeGridProps) {
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <CreateRecipeCard />
-        {hasRealRecipes
-          ? recipeIds.map((id) => {
-              const recipe = recipesMap.get(id);
-              if (!recipe) return null;
-              return (
-                <ConnectedRecipePreviewCard
-                  key={id}
-                  recipe={recipe}
-                  onClick={() => handleRecipeClick(recipe)}
-                />
-              );
-            })
-          : allRecipes.map((recipe) => (
-              <div
-                key={recipe.title}
-                onClick={() => {
-                  setSelectedTestRecipe(recipe);
-                  setSelectedRecipe(null);
-                  setDialogOpen(true);
-                }}
-              >
-                <RecipePreviewCard recipe={recipe} />
-              </div>
-            ))}
+        {recipeIds.map((id) => {
+          const recipe = recipesMap.get(id);
+          if (!recipe) return null;
+          return (
+            <ConnectedRecipePreviewCard
+              key={id}
+              recipe={recipe}
+              onClick={() => handleRecipeClick(recipe)}
+            />
+          );
+        })}
       </div>
 
       <RecipeDetailDialog
         recipe={selectedRecipe}
-        testRecipe={selectedTestRecipe}
         open={dialogOpen}
         onOpenChange={setDialogOpen}
       />
