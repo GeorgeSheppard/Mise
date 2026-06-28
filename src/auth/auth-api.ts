@@ -5,7 +5,6 @@
 
 import { getAuthSession, postAuthLogout } from '@/client/generated/hooks';
 import type { GetAuthSession200User } from '@/client/generated/hooks';
-import { clearPersistedCache } from '../lib/query-persister';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -34,9 +33,6 @@ export function signIn(): void {
  * Clears session and redirects to Cognito logout
  */
 export async function signOut(): Promise<void> {
-  // Clear persisted cache immediately before redirect to prevent auto-login on return
-  await clearPersistedCache();
-
   const redirectUri = window.location.origin;
   const response = await postAuthLogout({ redirect_uri: redirectUri });
 

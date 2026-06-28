@@ -42,10 +42,9 @@ export function RecipeGrid({ recipeIds }: RecipeGridProps) {
 
   const hasRealRecipes = recipes && recipes.length > 0;
 
-  // We already have recipe data (e.g. from the IndexedDB cache or a prior
-  // fetch), so render it straight away rather than waiting on the session
-  // to resolve - the session check below only matters when there's nothing
-  // to show yet.
+  // We already have recipe data from a prior fetch, so render it straight
+  // away rather than waiting on the session to resolve - the session check
+  // below only matters when there's nothing to show yet.
   if (!hasRealRecipes) {
     // Show empty state if not authenticated and session has finished loading
     if (!session.loading && !session.isAuthenticated) {

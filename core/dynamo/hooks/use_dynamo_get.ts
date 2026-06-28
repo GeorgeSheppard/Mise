@@ -56,5 +56,8 @@ export const useMealPlan = () => {
   return {
     ...mealPlan,
     data: (mealPlan.data || mealPlanEmptyState) as IMealPlan,
+    // placeholderData makes the query report success immediately, so use
+    // this to detect the initial fetch is still in flight.
+    isInitialLoading: mealPlan.isFetching && mealPlan.isPlaceholderData,
   };
 };

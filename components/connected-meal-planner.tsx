@@ -6,6 +6,7 @@ import {
   format,
 } from "date-fns";
 import { UtensilsCrossed } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useRecipes } from "../core/dynamo/hooks/use_dynamo_get";
 import { useMealPlan } from "../core/dynamo/hooks/use_dynamo_get";
 import { useRecipeSearch } from "../core/recipes/hooks/use_recipe_search";
@@ -36,7 +37,7 @@ export function ConnectedMealPlanner() {
   const [searchString, debouncedSearch, setSearchString] = useSearchDebounce("");
   const [selectedRecipe, setSelectedRecipe] = useState<IRecipe | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const { data: recipes } = useRecipes();
+  const { data: recipes, isLoading: recipesLoading } = useRecipes();
   const searchResultIds = useRecipeSearch(debouncedSearch);
   const mealPlan = useMealPlan();
   const putMealPlan = usePutMealPlanToDynamo();
@@ -182,6 +183,24 @@ export function ConnectedMealPlanner() {
     },
     [recipeByTitle]
   );
+
+  const isLoading = recipesLoading || mealPlan.isInitialLoading;
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-6">
+        <Skeleton className="h-16 w-full rounded-xl" />
+        <div className="hidden lg:flex lg:gap-6">
+          <Skeleton className="h-[60vh] w-[280px] shrink-0 rounded-xl" />
+          <Skeleton className="h-[60vh] flex-1 rounded-xl" />
+        </div>
+        <div className="flex flex-col gap-6 lg:hidden">
+          <Skeleton className="h-48 w-full rounded-xl" />
+          <Skeleton className="h-[60vh] w-full rounded-xl" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-6">
