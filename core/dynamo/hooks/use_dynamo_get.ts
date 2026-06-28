@@ -2,7 +2,7 @@ import { mealPlanEmptyState } from "../../meal_plan/meal_plan_utilities";
 import { IRecipes, RecipeUuid } from "../../types/recipes";
 import { NewRecipe } from "../../../src/pages/food/RecipeFormPage";
 import { useAppSession } from "../../hooks/use_app_session";
-import { useGetKitchencalmRecipes, useGetKitchencalmMealPlan } from "../../../client/hooks";
+import { useGetMiseRecipes, useGetMiseMealPlan } from "../../../client/hooks";
 import { UseQueryResult } from "@tanstack/react-query";
 import { IMealPlan } from "../../types/meal_plan";
 
@@ -14,7 +14,7 @@ const useRecipesBase = <T>({
   select?: (data: IRecipes) => T;
 }): UseQueryResult<T> => {
   const { loading, isAuthenticated } = useAppSession();
-  const recipesQuery = useGetKitchencalmRecipes({
+  const recipesQuery = useGetMiseRecipes({
     query: {
       enabled: !loading && isAuthenticated && (enabled ?? true),
     },
@@ -47,7 +47,7 @@ export const useRecipe = (recipeId?: RecipeUuid, enabled?: boolean) => {
 
 export const useMealPlan = () => {
   const { loading } = useAppSession();
-  const mealPlan = useGetKitchencalmMealPlan({
+  const mealPlan = useGetMiseMealPlan({
     query: {
       enabled: !loading,
       placeholderData: mealPlanEmptyState,

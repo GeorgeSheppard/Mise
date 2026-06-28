@@ -4,7 +4,7 @@
  * auth has resolved and before the network request completes.
  */
 
-const DB_NAME = "kitchencalm-cache";
+const DB_NAME = "mise-cache";
 const DB_VERSION = 1;
 const STORE_NAME = "cache";
 

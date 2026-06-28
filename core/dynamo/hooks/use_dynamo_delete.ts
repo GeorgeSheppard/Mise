@@ -2,7 +2,7 @@ import { RecipeUuid } from "../../types/recipes";
 import { useAppSession } from "../../hooks/use_app_session";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDeleteRecipe, getRecipesQueryKey, getMealPlanQueryKey } from "../../../client/hooks";
-import { GetKitchencalmRecipes200, MealPlan } from "../../../client/generated/hooks";
+import { GetMiseRecipes200, MealPlan } from "../../../client/generated/hooks";
 
 const useDeleteRecipeInCache = () => {
   const queryClient = useQueryClient();
@@ -10,7 +10,7 @@ const useDeleteRecipeInCache = () => {
   const mealPlanKey = getMealPlanQueryKey();
 
   return (recipeId: RecipeUuid) => {
-    const previousRecipesCache = queryClient.getQueryData<GetKitchencalmRecipes200>(recipesKey);
+    const previousRecipesCache = queryClient.getQueryData<GetMiseRecipes200>(recipesKey);
     const previousMealPlanCache = queryClient.getQueryData<MealPlan>(mealPlanKey);
 
     if (previousRecipesCache) {

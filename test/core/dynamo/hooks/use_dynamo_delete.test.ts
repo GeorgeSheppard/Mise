@@ -3,10 +3,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import { useDeleteRecipeFromDynamo } from "../../../../core/dynamo/hooks/use_dynamo_delete";
 import {
-  GetKitchencalmRecipes200,
+  GetMiseRecipes200,
   MealPlan,
-  getGetKitchencalmRecipesQueryKey,
-  getGetKitchencalmMealPlanQueryKey,
+  getGetMiseRecipesQueryKey,
+  getGetMiseMealPlanQueryKey,
 } from "../../../../client/generated/hooks";
 
 import { vi } from 'vitest';
@@ -27,8 +27,8 @@ vi.mock("../../../../client/hooks", async () => {
   };
 });
 
-const recipesKey = getGetKitchencalmRecipesQueryKey();
-const mealPlanKey = getGetKitchencalmMealPlanQueryKey();
+const recipesKey = getGetMiseRecipesQueryKey();
+const mealPlanKey = getGetMiseMealPlanQueryKey();
 
 describe("useDeleteRecipeFromDynamo", () => {
   let queryClient: QueryClient;
@@ -48,7 +48,7 @@ describe("useDeleteRecipeFromDynamo", () => {
     });
 
     it("removes the recipe from the recipes cache", async () => {
-      queryClient.setQueryData<GetKitchencalmRecipes200>(recipesKey, {
+      queryClient.setQueryData<GetMiseRecipes200>(recipesKey, {
         "recipe-1": { uuid: "recipe-1", name: "Pasta", description: "", images: [], components: [] },
         "recipe-2": { uuid: "recipe-2", name: "Salad", description: "", images: [], components: [] },
       });
@@ -58,7 +58,7 @@ describe("useDeleteRecipeFromDynamo", () => {
         await result.current.mutateAsync("recipe-1");
       });
 
-      const cached = queryClient.getQueryData<GetKitchencalmRecipes200>(recipesKey);
+      const cached = queryClient.getQueryData<GetMiseRecipes200>(recipesKey);
       expect(Object.keys(cached!)).toEqual(["recipe-2"]);
     });
 
@@ -100,7 +100,7 @@ describe("useDeleteRecipeFromDynamo", () => {
     });
 
     it("does nothing to the meal plan when the meal plan cache is absent", async () => {
-      queryClient.setQueryData<GetKitchencalmRecipes200>(recipesKey, {
+      queryClient.setQueryData<GetMiseRecipes200>(recipesKey, {
         "recipe-1": { uuid: "recipe-1", name: "Pasta", description: "", images: [], components: [] },
       });
 
@@ -119,7 +119,7 @@ describe("useDeleteRecipeFromDynamo", () => {
     });
 
     it("rolls back the recipes cache", async () => {
-      queryClient.setQueryData<GetKitchencalmRecipes200>(recipesKey, {
+      queryClient.setQueryData<GetMiseRecipes200>(recipesKey, {
         "recipe-1": { uuid: "recipe-1", name: "Pasta", description: "", images: [], components: [] },
       });
 
@@ -128,7 +128,7 @@ describe("useDeleteRecipeFromDynamo", () => {
         await expect(result.current.mutateAsync("recipe-1")).rejects.toThrow("network error");
       });
 
-      const cached = queryClient.getQueryData<GetKitchencalmRecipes200>(recipesKey);
+      const cached = queryClient.getQueryData<GetMiseRecipes200>(recipesKey);
       expect(Object.keys(cached!)).toContain("recipe-1");
     });
 

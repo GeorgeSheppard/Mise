@@ -10,8 +10,8 @@ import {
 import { ShoppingCart, Copy, Check, ArrowLeft } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
 import {
-  useGetKitchencalmShoppingList,
-  GetKitchencalmShoppingList200Item,
+  useGetMiseShoppingList,
+  GetMiseShoppingList200Item,
 } from "../client/generated/hooks";
 
 interface ShoppingListDialogProps {
@@ -33,7 +33,7 @@ function formatQuantity(
   return qty.unit;
 }
 
-function formatItem(item: GetKitchencalmShoppingList200Item): string {
+function formatItem(item: GetMiseShoppingList200Item): string {
   const quantities = item.quantities.map(formatQuantity).filter(Boolean).join(" + ");
   const base = quantities ? `${item.ingredient} — ${quantities}` : item.ingredient;
   if (item.meals && item.meals.length > 0) {
@@ -43,9 +43,9 @@ function formatItem(item: GetKitchencalmShoppingList200Item): string {
 }
 
 function shoppingListToText(
-  items: GetKitchencalmShoppingList200Item[]
+  items: GetMiseShoppingList200Item[]
 ): string {
-  const byCategory: Record<string, GetKitchencalmShoppingList200Item[]> = {};
+  const byCategory: Record<string, GetMiseShoppingList200Item[]> = {};
   for (const item of items) {
     const cat = item.category || "Other";
     if (!byCategory[cat]) byCategory[cat] = [];
@@ -55,7 +55,7 @@ function shoppingListToText(
   return Object.entries(byCategory)
     .map(
       ([category, catItems]) =>
-        `${category}\n${catItems.map((i: GetKitchencalmShoppingList200Item) => `  ${formatItem(i)}`).join("\n")}`
+        `${category}\n${catItems.map((i: GetMiseShoppingList200Item) => `  ${formatItem(i)}`).join("\n")}`
     )
     .join("\n\n");
 }
@@ -63,7 +63,7 @@ function shoppingListToText(
 export function ShoppingListDialog({ selectedDates }: ShoppingListDialogProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [shoppingList, setShoppingList] = useState<
-    GetKitchencalmShoppingList200Item[] | null
+    GetMiseShoppingList200Item[] | null
   >(null);
   const [copied, setCopied] = useState(false);
 
@@ -73,7 +73,7 @@ export function ShoppingListDialog({ selectedDates }: ShoppingListDialogProps) {
     return String(date.getTime());
   });
 
-  const { refetch, isFetching } = useGetKitchencalmShoppingList(
+  const { refetch, isFetching } = useGetMiseShoppingList(
     dates.length > 0 ? { dates } : undefined,
     {
       query: {
@@ -120,11 +120,11 @@ export function ShoppingListDialog({ selectedDates }: ShoppingListDialogProps) {
   };
 
   // Group items by category for display
-  const groupedItems: [string, GetKitchencalmShoppingList200Item[]][] =
+  const groupedItems: [string, GetMiseShoppingList200Item[]][] =
     shoppingList
       ? Object.entries(
           shoppingList.reduce<
-            Record<string, GetKitchencalmShoppingList200Item[]>
+            Record<string, GetMiseShoppingList200Item[]>
           >((acc, item) => {
             const cat = item.category || "Other";
             if (!acc[cat]) acc[cat] = [];

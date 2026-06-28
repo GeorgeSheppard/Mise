@@ -1,7 +1,7 @@
 import { useParseRecipe } from '../../../client/hooks';
 import { useQueryClient } from '@tanstack/react-query';
 import { getRecipesQueryKey } from '../../../client/hooks';
-import { GetKitchencalmRecipes200 } from '../../../client/generated/hooks';
+import { GetMiseRecipes200 } from '../../../client/generated/hooks';
 
 /**
  * Hook for parsing recipe text and adding it to the recipe cache
@@ -28,7 +28,7 @@ export const useParsedRecipeToDynamo = () => {
       }
 
       // Update the query cache with the parsed recipe
-      const cachedRecipes = queryClient.getQueryData<GetKitchencalmRecipes200>(recipesKey);
+      const cachedRecipes = queryClient.getQueryData<GetMiseRecipes200>(recipesKey);
       const recipeUuid = recipeId || parsedRecipe.uuid;
 
       if (cachedRecipes) {

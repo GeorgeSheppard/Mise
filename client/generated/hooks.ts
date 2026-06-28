@@ -19,22 +19,22 @@ import type {
   UseQueryResult
 } from '@tanstack/react-query'
 import { axiosInstance } from '../../src/lib/axios';
-export type PostKitchencalmParseRecipe500 = {
+export type PostMiseParseRecipe500 = {
   /** Error message */
   error: string;
 };
 
-export type PostKitchencalmParseRecipe401 = {
+export type PostMiseParseRecipe401 = {
   /** Error message */
   error: string;
 };
 
-export type PostKitchencalmParseRecipe400 = {
+export type PostMiseParseRecipe400 = {
   /** Error message */
   error: string;
 };
 
-export type PostKitchencalmParseRecipeBody = {
+export type PostMiseParseRecipeBody = {
   /** S3 key of the image to associate with this recipe (from presigned upload endpoint) */
   imageKey?: string;
   /** Recipe UUID for editing existing recipes */
@@ -46,93 +46,93 @@ export type PostKitchencalmParseRecipeBody = {
   recipeText: string;
 };
 
-export type PostKitchencalmS3Delete500 = {
+export type PostMiseS3Delete500 = {
   /** Error message */
   error: string;
 };
 
-export type PostKitchencalmS3Delete400 = {
+export type PostMiseS3Delete400 = {
   /** Error message */
   error: string;
 };
 
-export type PostKitchencalmS3Delete200 = {
+export type PostMiseS3Delete200 = {
   /** Whether delete was successful */
   success: boolean;
 };
 
-export type PostKitchencalmS3DeleteBody = {
+export type PostMiseS3DeleteBody = {
   /** S3 object key to delete */
   key: string;
 };
 
-export type PostKitchencalmS3Upload500 = {
+export type PostMiseS3Upload500 = {
   /** Error message */
   error: string;
 };
 
-export type PostKitchencalmS3Upload401 = {
+export type PostMiseS3Upload401 = {
   /** Error message */
   error: string;
 };
 
-export type PostKitchencalmS3Upload400 = {
+export type PostMiseS3Upload400 = {
   /** Error message */
   error: string;
 };
 
-export type PostKitchencalmS3Upload200 = {
+export type PostMiseS3Upload200 = {
   /** S3 object key where file will be stored */
   key: string;
   /** Signed PUT URL valid for upload */
   signedUrl: string;
 };
 
-export type PostKitchencalmS3UploadBody = {
+export type PostMiseS3UploadBody = {
   /** MIME type (e.g., "image/jpeg") */
   contentType: string;
   /** Original filename */
   fileName: string;
 };
 
-export type PostKitchencalmS3SignedUrl500 = {
+export type PostMiseS3SignedUrl500 = {
   /** Error message */
   error: string;
 };
 
-export type PostKitchencalmS3SignedUrl400 = {
+export type PostMiseS3SignedUrl400 = {
   /** Error message */
   error: string;
 };
 
-export type PostKitchencalmS3SignedUrl200 = {
+export type PostMiseS3SignedUrl200 = {
   /** Signed GET URL valid for download */
   signedUrl: string;
 };
 
-export type PostKitchencalmS3SignedUrlBody = {
+export type PostMiseS3SignedUrlBody = {
   /** S3 object key */
   key: string;
 };
 
-export type GetKitchencalmShoppingList500 = {
+export type GetMiseShoppingList500 = {
   /** Error message */
   error: string;
 };
 
-export type GetKitchencalmShoppingList401 = {
+export type GetMiseShoppingList401 = {
   /** Error message */
   error: string;
 };
 
-export type GetKitchencalmShoppingList200ItemQuantitiesItem = {
+export type GetMiseShoppingList200ItemQuantitiesItem = {
   /** Unit of measurement */
   unit: string;
   /** Quantity value */
   value?: number;
 };
 
-export type GetKitchencalmShoppingList200Item = {
+export type GetMiseShoppingList200Item = {
   /** Shopping category for the ingredient */
   category: string;
   /** Name of the ingredient */
@@ -140,79 +140,79 @@ export type GetKitchencalmShoppingList200Item = {
   /** List of meals this ingredient belongs to */
   meals: string[];
   /** Array of quantities with units */
-  quantities: GetKitchencalmShoppingList200ItemQuantitiesItem[];
+  quantities: GetMiseShoppingList200ItemQuantitiesItem[];
 };
 
-export type GetKitchencalmShoppingListParams = {
+export type GetMiseShoppingListParams = {
 /**
  * Array of Unix timestamps (milliseconds) to include in shopping list
  */
 dates?: string | string[];
 };
 
-export type PutKitchencalmMealPlan500 = {
+export type PutMiseMealPlan500 = {
   /** Error message */
   error: string;
 };
 
-export type PutKitchencalmMealPlan401 = {
+export type PutMiseMealPlan401 = {
   /** Error message */
   error: string;
 };
 
-export type PutKitchencalmMealPlan400 = {
+export type PutMiseMealPlan400 = {
   /** Error message */
   error: string;
 };
 
-export type PutKitchencalmMealPlan200 = {
+export type PutMiseMealPlan200 = {
   /** Whether update was successful */
   success: boolean;
 };
 
-export type GetKitchencalmMealPlan500 = {
+export type GetMiseMealPlan500 = {
   /** Error message */
   error: string;
 };
 
-export type GetKitchencalmMealPlan401 = {
+export type GetMiseMealPlan401 = {
   /** Error message */
   error: string;
 };
 
-export type DeleteKitchencalmRecipesUuid500 = {
+export type DeleteMiseRecipesUuid500 = {
   /** Error message */
   error: string;
 };
 
-export type DeleteKitchencalmRecipesUuid401 = {
+export type DeleteMiseRecipesUuid401 = {
   /** Error message */
   error: string;
 };
 
-export type DeleteKitchencalmRecipesUuid200 = {
+export type DeleteMiseRecipesUuid200 = {
   /** Whether delete was successful */
   success: boolean;
   /** UUID of deleted recipe */
   uuid: string;
 };
 
-export type GetKitchencalmRecipesSearch500 = {
+export type GetMiseRecipesSearch500 = {
   /** Error message */
   error: string;
 };
 
-export type GetKitchencalmRecipesSearch401 = {
+export type GetMiseRecipesSearch401 = {
   /** Error message */
   error: string;
 };
 
-export type GetKitchencalmRecipesSearch400 = {
+export type GetMiseRecipesSearch400 = {
   /** Error message */
   error: string;
 };
 
-export type GetKitchencalmRecipesSearch200ResultsItem = {
+export type GetMiseRecipesSearch200ResultsItem = {
   /** Recipe description */
   description: string;
   /** Flattened list of ingredient names */
@@ -223,17 +223,17 @@ export type GetKitchencalmRecipesSearch200ResultsItem = {
   uuid: string;
 };
 
-export type GetKitchencalmRecipesSearch200 = {
+export type GetMiseRecipesSearch200 = {
   /**
    * Number of results returned
    * @minimum 0
    */
   count: number;
   /** Array of matching recipes */
-  results: GetKitchencalmRecipesSearch200ResultsItem[];
+  results: GetMiseRecipesSearch200ResultsItem[];
 };
 
-export type GetKitchencalmRecipesSearchParams = {
+export type GetMiseRecipesSearchParams = {
 /**
  * Search query string
  */
@@ -244,17 +244,17 @@ q: string;
 fields?: string;
 };
 
-export type GetKitchencalmRecipes500 = {
+export type GetMiseRecipes500 = {
   /** Error message */
   error: string;
 };
 
-export type GetKitchencalmRecipes401 = {
+export type GetMiseRecipes401 = {
   /** Error message */
   error: string;
 };
 
-export type GetKitchencalmRecipes200 = {[key: string]: Recipe};
+export type GetMiseRecipes200 = {[key: string]: Recipe};
 
 export type PostMcpAuthToken401 = {
   error: string;
@@ -1077,51 +1077,51 @@ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 /**
  * Get all recipes for the authenticated user
  */
-export const getKitchencalmRecipes = (
+export const getMiseRecipes = (
     
  options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
 ) => {
       
       
-      return axiosInstance<GetKitchencalmRecipes200>(
-      {url: `/kitchencalm/recipes`, method: 'GET', signal
+      return axiosInstance<GetMiseRecipes200>(
+      {url: `/mise/recipes`, method: 'GET', signal
     },
       options);
     }
   
 
-export const getGetKitchencalmRecipesQueryKey = () => {
-    return [`/kitchencalm/recipes`] as const;
+export const getGetMiseRecipesQueryKey = () => {
+    return [`/mise/recipes`] as const;
     }
 
     
-export const getGetKitchencalmRecipesQueryOptions = <TData = Awaited<ReturnType<typeof getKitchencalmRecipes>>, TError = GetKitchencalmRecipes401 | GetKitchencalmRecipes500>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmRecipes>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+export const getGetMiseRecipesQueryOptions = <TData = Awaited<ReturnType<typeof getMiseRecipes>>, TError = GetMiseRecipes401 | GetMiseRecipes500>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getMiseRecipes>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetKitchencalmRecipesQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getGetMiseRecipesQueryKey();
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getKitchencalmRecipes>>> = ({ signal }) => getKitchencalmRecipes(requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getMiseRecipes>>> = ({ signal }) => getMiseRecipes(requestOptions, signal);
 
       
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmRecipes>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getMiseRecipes>>, TError, TData> & { queryKey: QueryKey }
 }
 
-export type GetKitchencalmRecipesQueryResult = NonNullable<Awaited<ReturnType<typeof getKitchencalmRecipes>>>
-export type GetKitchencalmRecipesQueryError = GetKitchencalmRecipes401 | GetKitchencalmRecipes500
+export type GetMiseRecipesQueryResult = NonNullable<Awaited<ReturnType<typeof getMiseRecipes>>>
+export type GetMiseRecipesQueryError = GetMiseRecipes401 | GetMiseRecipes500
 
-export const useGetKitchencalmRecipes = <TData = Awaited<ReturnType<typeof getKitchencalmRecipes>>, TError = GetKitchencalmRecipes401 | GetKitchencalmRecipes500>(
-  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmRecipes>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+export const useGetMiseRecipes = <TData = Awaited<ReturnType<typeof getMiseRecipes>>, TError = GetMiseRecipes401 | GetMiseRecipes500>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getMiseRecipes>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
 
   ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
 
-  const queryOptions = getGetKitchencalmRecipesQueryOptions(options)
+  const queryOptions = getGetMiseRecipesQueryOptions(options)
 
   const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
@@ -1136,52 +1136,52 @@ export const useGetKitchencalmRecipes = <TData = Awaited<ReturnType<typeof getKi
 /**
  * Search recipes by name, description, ingredients, or instructions
  */
-export const getKitchencalmRecipesSearch = (
-    params: GetKitchencalmRecipesSearchParams,
+export const getMiseRecipesSearch = (
+    params: GetMiseRecipesSearchParams,
  options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
 ) => {
       
       
-      return axiosInstance<GetKitchencalmRecipesSearch200>(
-      {url: `/kitchencalm/recipes/search`, method: 'GET',
+      return axiosInstance<GetMiseRecipesSearch200>(
+      {url: `/mise/recipes/search`, method: 'GET',
         params, signal
     },
       options);
     }
   
 
-export const getGetKitchencalmRecipesSearchQueryKey = (params: GetKitchencalmRecipesSearchParams,) => {
-    return [`/kitchencalm/recipes/search`, ...(params ? [params]: [])] as const;
+export const getGetMiseRecipesSearchQueryKey = (params: GetMiseRecipesSearchParams,) => {
+    return [`/mise/recipes/search`, ...(params ? [params]: [])] as const;
     }
 
     
-export const getGetKitchencalmRecipesSearchQueryOptions = <TData = Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>, TError = GetKitchencalmRecipesSearch400 | GetKitchencalmRecipesSearch401 | GetKitchencalmRecipesSearch500>(params: GetKitchencalmRecipesSearchParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+export const getGetMiseRecipesSearchQueryOptions = <TData = Awaited<ReturnType<typeof getMiseRecipesSearch>>, TError = GetMiseRecipesSearch400 | GetMiseRecipesSearch401 | GetMiseRecipesSearch500>(params: GetMiseRecipesSearchParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getMiseRecipesSearch>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetKitchencalmRecipesSearchQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getGetMiseRecipesSearchQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>> = ({ signal }) => getKitchencalmRecipesSearch(params, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getMiseRecipesSearch>>> = ({ signal }) => getMiseRecipesSearch(params, requestOptions, signal);
 
       
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getMiseRecipesSearch>>, TError, TData> & { queryKey: QueryKey }
 }
 
-export type GetKitchencalmRecipesSearchQueryResult = NonNullable<Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>>
-export type GetKitchencalmRecipesSearchQueryError = GetKitchencalmRecipesSearch400 | GetKitchencalmRecipesSearch401 | GetKitchencalmRecipesSearch500
+export type GetMiseRecipesSearchQueryResult = NonNullable<Awaited<ReturnType<typeof getMiseRecipesSearch>>>
+export type GetMiseRecipesSearchQueryError = GetMiseRecipesSearch400 | GetMiseRecipesSearch401 | GetMiseRecipesSearch500
 
-export const useGetKitchencalmRecipesSearch = <TData = Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>, TError = GetKitchencalmRecipesSearch400 | GetKitchencalmRecipesSearch401 | GetKitchencalmRecipesSearch500>(
- params: GetKitchencalmRecipesSearchParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmRecipesSearch>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+export const useGetMiseRecipesSearch = <TData = Awaited<ReturnType<typeof getMiseRecipesSearch>>, TError = GetMiseRecipesSearch400 | GetMiseRecipesSearch401 | GetMiseRecipesSearch500>(
+ params: GetMiseRecipesSearchParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getMiseRecipesSearch>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
 
   ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
 
-  const queryOptions = getGetKitchencalmRecipesSearchQueryOptions(params,options)
+  const queryOptions = getGetMiseRecipesSearchQueryOptions(params,options)
 
   const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
@@ -1196,31 +1196,31 @@ export const useGetKitchencalmRecipesSearch = <TData = Awaited<ReturnType<typeof
 /**
  * Delete a recipe for the authenticated user
  */
-export const deleteKitchencalmRecipesUuid = (
+export const deleteMiseRecipesUuid = (
     uuid: string,
  options?: SecondParameter<typeof axiosInstance>,) => {
       
       
-      return axiosInstance<DeleteKitchencalmRecipesUuid200>(
-      {url: `/kitchencalm/recipes/${uuid}`, method: 'DELETE'
+      return axiosInstance<DeleteMiseRecipesUuid200>(
+      {url: `/mise/recipes/${uuid}`, method: 'DELETE'
     },
       options);
     }
   
 
 
-export const getDeleteKitchencalmRecipesUuidMutationOptions = <TError = DeleteKitchencalmRecipesUuid401 | DeleteKitchencalmRecipesUuid500,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>, TError,{uuid: string}, TContext>, request?: SecondParameter<typeof axiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>, TError,{uuid: string}, TContext> => {
+export const getDeleteMiseRecipesUuidMutationOptions = <TError = DeleteMiseRecipesUuid401 | DeleteMiseRecipesUuid500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteMiseRecipesUuid>>, TError,{uuid: string}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteMiseRecipesUuid>>, TError,{uuid: string}, TContext> => {
 const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>, {uuid: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteMiseRecipesUuid>>, {uuid: string}> = (props) => {
           const {uuid} = props ?? {};
 
-          return  deleteKitchencalmRecipesUuid(uuid,requestOptions)
+          return  deleteMiseRecipesUuid(uuid,requestOptions)
         }
 
         
@@ -1228,20 +1228,20 @@ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type DeleteKitchencalmRecipesUuidMutationResult = NonNullable<Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>>
+    export type DeleteMiseRecipesUuidMutationResult = NonNullable<Awaited<ReturnType<typeof deleteMiseRecipesUuid>>>
     
-    export type DeleteKitchencalmRecipesUuidMutationError = DeleteKitchencalmRecipesUuid401 | DeleteKitchencalmRecipesUuid500
+    export type DeleteMiseRecipesUuidMutationError = DeleteMiseRecipesUuid401 | DeleteMiseRecipesUuid500
 
-    export const useDeleteKitchencalmRecipesUuid = <TError = DeleteKitchencalmRecipesUuid401 | DeleteKitchencalmRecipesUuid500,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>, TError,{uuid: string}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+    export const useDeleteMiseRecipesUuid = <TError = DeleteMiseRecipesUuid401 | DeleteMiseRecipesUuid500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteMiseRecipesUuid>>, TError,{uuid: string}, TContext>, request?: SecondParameter<typeof axiosInstance>}
 ): UseMutationResult<
-        Awaited<ReturnType<typeof deleteKitchencalmRecipesUuid>>,
+        Awaited<ReturnType<typeof deleteMiseRecipesUuid>>,
         TError,
         {uuid: string},
         TContext
       > => {
 
-      const mutationOptions = getDeleteKitchencalmRecipesUuidMutationOptions(options);
+      const mutationOptions = getDeleteMiseRecipesUuidMutationOptions(options);
 
       return useMutation(mutationOptions);
     }
@@ -1249,51 +1249,51 @@ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 /**
  * Get the meal plan for the authenticated user
  */
-export const getKitchencalmMealPlan = (
+export const getMiseMealPlan = (
     
  options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
 ) => {
       
       
       return axiosInstance<MealPlan>(
-      {url: `/kitchencalm/meal-plan`, method: 'GET', signal
+      {url: `/mise/meal-plan`, method: 'GET', signal
     },
       options);
     }
   
 
-export const getGetKitchencalmMealPlanQueryKey = () => {
-    return [`/kitchencalm/meal-plan`] as const;
+export const getGetMiseMealPlanQueryKey = () => {
+    return [`/mise/meal-plan`] as const;
     }
 
     
-export const getGetKitchencalmMealPlanQueryOptions = <TData = Awaited<ReturnType<typeof getKitchencalmMealPlan>>, TError = GetKitchencalmMealPlan401 | GetKitchencalmMealPlan500>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmMealPlan>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+export const getGetMiseMealPlanQueryOptions = <TData = Awaited<ReturnType<typeof getMiseMealPlan>>, TError = GetMiseMealPlan401 | GetMiseMealPlan500>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getMiseMealPlan>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetKitchencalmMealPlanQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getGetMiseMealPlanQueryKey();
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getKitchencalmMealPlan>>> = ({ signal }) => getKitchencalmMealPlan(requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getMiseMealPlan>>> = ({ signal }) => getMiseMealPlan(requestOptions, signal);
 
       
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmMealPlan>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getMiseMealPlan>>, TError, TData> & { queryKey: QueryKey }
 }
 
-export type GetKitchencalmMealPlanQueryResult = NonNullable<Awaited<ReturnType<typeof getKitchencalmMealPlan>>>
-export type GetKitchencalmMealPlanQueryError = GetKitchencalmMealPlan401 | GetKitchencalmMealPlan500
+export type GetMiseMealPlanQueryResult = NonNullable<Awaited<ReturnType<typeof getMiseMealPlan>>>
+export type GetMiseMealPlanQueryError = GetMiseMealPlan401 | GetMiseMealPlan500
 
-export const useGetKitchencalmMealPlan = <TData = Awaited<ReturnType<typeof getKitchencalmMealPlan>>, TError = GetKitchencalmMealPlan401 | GetKitchencalmMealPlan500>(
-  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmMealPlan>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+export const useGetMiseMealPlan = <TData = Awaited<ReturnType<typeof getMiseMealPlan>>, TError = GetMiseMealPlan401 | GetMiseMealPlan500>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getMiseMealPlan>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
 
   ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
 
-  const queryOptions = getGetKitchencalmMealPlanQueryOptions(options)
+  const queryOptions = getGetMiseMealPlanQueryOptions(options)
 
   const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
@@ -1308,13 +1308,13 @@ export const useGetKitchencalmMealPlan = <TData = Awaited<ReturnType<typeof getK
 /**
  * Update the meal plan for the authenticated user
  */
-export const putKitchencalmMealPlan = (
+export const putMiseMealPlan = (
     mealPlan: MealPlan,
  options?: SecondParameter<typeof axiosInstance>,) => {
       
       
-      return axiosInstance<PutKitchencalmMealPlan200>(
-      {url: `/kitchencalm/meal-plan`, method: 'PUT',
+      return axiosInstance<PutMiseMealPlan200>(
+      {url: `/mise/meal-plan`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: mealPlan
     },
@@ -1323,18 +1323,18 @@ export const putKitchencalmMealPlan = (
   
 
 
-export const getPutKitchencalmMealPlanMutationOptions = <TError = PutKitchencalmMealPlan400 | PutKitchencalmMealPlan401 | PutKitchencalmMealPlan500,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putKitchencalmMealPlan>>, TError,{data: MealPlan}, TContext>, request?: SecondParameter<typeof axiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof putKitchencalmMealPlan>>, TError,{data: MealPlan}, TContext> => {
+export const getPutMiseMealPlanMutationOptions = <TError = PutMiseMealPlan400 | PutMiseMealPlan401 | PutMiseMealPlan500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putMiseMealPlan>>, TError,{data: MealPlan}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof putMiseMealPlan>>, TError,{data: MealPlan}, TContext> => {
 const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof putKitchencalmMealPlan>>, {data: MealPlan}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof putMiseMealPlan>>, {data: MealPlan}> = (props) => {
           const {data} = props ?? {};
 
-          return  putKitchencalmMealPlan(data,requestOptions)
+          return  putMiseMealPlan(data,requestOptions)
         }
 
         
@@ -1342,20 +1342,20 @@ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PutKitchencalmMealPlanMutationResult = NonNullable<Awaited<ReturnType<typeof putKitchencalmMealPlan>>>
-    export type PutKitchencalmMealPlanMutationBody = MealPlan
-    export type PutKitchencalmMealPlanMutationError = PutKitchencalmMealPlan400 | PutKitchencalmMealPlan401 | PutKitchencalmMealPlan500
+    export type PutMiseMealPlanMutationResult = NonNullable<Awaited<ReturnType<typeof putMiseMealPlan>>>
+    export type PutMiseMealPlanMutationBody = MealPlan
+    export type PutMiseMealPlanMutationError = PutMiseMealPlan400 | PutMiseMealPlan401 | PutMiseMealPlan500
 
-    export const usePutKitchencalmMealPlan = <TError = PutKitchencalmMealPlan400 | PutKitchencalmMealPlan401 | PutKitchencalmMealPlan500,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putKitchencalmMealPlan>>, TError,{data: MealPlan}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+    export const usePutMiseMealPlan = <TError = PutMiseMealPlan400 | PutMiseMealPlan401 | PutMiseMealPlan500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putMiseMealPlan>>, TError,{data: MealPlan}, TContext>, request?: SecondParameter<typeof axiosInstance>}
 ): UseMutationResult<
-        Awaited<ReturnType<typeof putKitchencalmMealPlan>>,
+        Awaited<ReturnType<typeof putMiseMealPlan>>,
         TError,
         {data: MealPlan},
         TContext
       > => {
 
-      const mutationOptions = getPutKitchencalmMealPlanMutationOptions(options);
+      const mutationOptions = getPutMiseMealPlanMutationOptions(options);
 
       return useMutation(mutationOptions);
     }
@@ -1363,52 +1363,52 @@ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 /**
  * Get aggregated shopping list from recipes in the meal plan, optionally filtered by date range
  */
-export const getKitchencalmShoppingList = (
-    params?: GetKitchencalmShoppingListParams,
+export const getMiseShoppingList = (
+    params?: GetMiseShoppingListParams,
  options?: SecondParameter<typeof axiosInstance>,signal?: AbortSignal
 ) => {
       
       
-      return axiosInstance<GetKitchencalmShoppingList200Item[]>(
-      {url: `/kitchencalm/shopping-list`, method: 'GET',
+      return axiosInstance<GetMiseShoppingList200Item[]>(
+      {url: `/mise/shopping-list`, method: 'GET',
         params, signal
     },
       options);
     }
   
 
-export const getGetKitchencalmShoppingListQueryKey = (params?: GetKitchencalmShoppingListParams,) => {
-    return [`/kitchencalm/shopping-list`, ...(params ? [params]: [])] as const;
+export const getGetMiseShoppingListQueryKey = (params?: GetMiseShoppingListParams,) => {
+    return [`/mise/shopping-list`, ...(params ? [params]: [])] as const;
     }
 
     
-export const getGetKitchencalmShoppingListQueryOptions = <TData = Awaited<ReturnType<typeof getKitchencalmShoppingList>>, TError = GetKitchencalmShoppingList401 | GetKitchencalmShoppingList500>(params?: GetKitchencalmShoppingListParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmShoppingList>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+export const getGetMiseShoppingListQueryOptions = <TData = Awaited<ReturnType<typeof getMiseShoppingList>>, TError = GetMiseShoppingList401 | GetMiseShoppingList500>(params?: GetMiseShoppingListParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getMiseShoppingList>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetKitchencalmShoppingListQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getGetMiseShoppingListQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getKitchencalmShoppingList>>> = ({ signal }) => getKitchencalmShoppingList(params, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getMiseShoppingList>>> = ({ signal }) => getMiseShoppingList(params, requestOptions, signal);
 
       
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmShoppingList>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getMiseShoppingList>>, TError, TData> & { queryKey: QueryKey }
 }
 
-export type GetKitchencalmShoppingListQueryResult = NonNullable<Awaited<ReturnType<typeof getKitchencalmShoppingList>>>
-export type GetKitchencalmShoppingListQueryError = GetKitchencalmShoppingList401 | GetKitchencalmShoppingList500
+export type GetMiseShoppingListQueryResult = NonNullable<Awaited<ReturnType<typeof getMiseShoppingList>>>
+export type GetMiseShoppingListQueryError = GetMiseShoppingList401 | GetMiseShoppingList500
 
-export const useGetKitchencalmShoppingList = <TData = Awaited<ReturnType<typeof getKitchencalmShoppingList>>, TError = GetKitchencalmShoppingList401 | GetKitchencalmShoppingList500>(
- params?: GetKitchencalmShoppingListParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getKitchencalmShoppingList>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
+export const useGetMiseShoppingList = <TData = Awaited<ReturnType<typeof getMiseShoppingList>>, TError = GetMiseShoppingList401 | GetMiseShoppingList500>(
+ params?: GetMiseShoppingListParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getMiseShoppingList>>, TError, TData>, request?: SecondParameter<typeof axiosInstance>}
 
   ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
 
-  const queryOptions = getGetKitchencalmShoppingListQueryOptions(params,options)
+  const queryOptions = getGetMiseShoppingListQueryOptions(params,options)
 
   const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
@@ -1423,33 +1423,33 @@ export const useGetKitchencalmShoppingList = <TData = Awaited<ReturnType<typeof 
 /**
  * Generate a signed GET URL for downloading files from S3
  */
-export const postKitchencalmS3SignedUrl = (
-    postKitchencalmS3SignedUrlBody: PostKitchencalmS3SignedUrlBody,
+export const postMiseS3SignedUrl = (
+    postMiseS3SignedUrlBody: PostMiseS3SignedUrlBody,
  options?: SecondParameter<typeof axiosInstance>,) => {
       
       
-      return axiosInstance<PostKitchencalmS3SignedUrl200>(
-      {url: `/kitchencalm/s3/signed-url`, method: 'POST',
+      return axiosInstance<PostMiseS3SignedUrl200>(
+      {url: `/mise/s3/signed-url`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: postKitchencalmS3SignedUrlBody
+      data: postMiseS3SignedUrlBody
     },
       options);
     }
   
 
 
-export const getPostKitchencalmS3SignedUrlMutationOptions = <TError = PostKitchencalmS3SignedUrl400 | PostKitchencalmS3SignedUrl500,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>, TError,{data: PostKitchencalmS3SignedUrlBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>, TError,{data: PostKitchencalmS3SignedUrlBody}, TContext> => {
+export const getPostMiseS3SignedUrlMutationOptions = <TError = PostMiseS3SignedUrl400 | PostMiseS3SignedUrl500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postMiseS3SignedUrl>>, TError,{data: PostMiseS3SignedUrlBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postMiseS3SignedUrl>>, TError,{data: PostMiseS3SignedUrlBody}, TContext> => {
 const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>, {data: PostKitchencalmS3SignedUrlBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postMiseS3SignedUrl>>, {data: PostMiseS3SignedUrlBody}> = (props) => {
           const {data} = props ?? {};
 
-          return  postKitchencalmS3SignedUrl(data,requestOptions)
+          return  postMiseS3SignedUrl(data,requestOptions)
         }
 
         
@@ -1457,20 +1457,20 @@ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostKitchencalmS3SignedUrlMutationResult = NonNullable<Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>>
-    export type PostKitchencalmS3SignedUrlMutationBody = PostKitchencalmS3SignedUrlBody
-    export type PostKitchencalmS3SignedUrlMutationError = PostKitchencalmS3SignedUrl400 | PostKitchencalmS3SignedUrl500
+    export type PostMiseS3SignedUrlMutationResult = NonNullable<Awaited<ReturnType<typeof postMiseS3SignedUrl>>>
+    export type PostMiseS3SignedUrlMutationBody = PostMiseS3SignedUrlBody
+    export type PostMiseS3SignedUrlMutationError = PostMiseS3SignedUrl400 | PostMiseS3SignedUrl500
 
-    export const usePostKitchencalmS3SignedUrl = <TError = PostKitchencalmS3SignedUrl400 | PostKitchencalmS3SignedUrl500,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>, TError,{data: PostKitchencalmS3SignedUrlBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+    export const usePostMiseS3SignedUrl = <TError = PostMiseS3SignedUrl400 | PostMiseS3SignedUrl500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postMiseS3SignedUrl>>, TError,{data: PostMiseS3SignedUrlBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
 ): UseMutationResult<
-        Awaited<ReturnType<typeof postKitchencalmS3SignedUrl>>,
+        Awaited<ReturnType<typeof postMiseS3SignedUrl>>,
         TError,
-        {data: PostKitchencalmS3SignedUrlBody},
+        {data: PostMiseS3SignedUrlBody},
         TContext
       > => {
 
-      const mutationOptions = getPostKitchencalmS3SignedUrlMutationOptions(options);
+      const mutationOptions = getPostMiseS3SignedUrlMutationOptions(options);
 
       return useMutation(mutationOptions);
     }
@@ -1478,33 +1478,33 @@ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 /**
  * Generate a signed PUT URL for uploading files to S3
  */
-export const postKitchencalmS3Upload = (
-    postKitchencalmS3UploadBody: PostKitchencalmS3UploadBody,
+export const postMiseS3Upload = (
+    postMiseS3UploadBody: PostMiseS3UploadBody,
  options?: SecondParameter<typeof axiosInstance>,) => {
       
       
-      return axiosInstance<PostKitchencalmS3Upload200>(
-      {url: `/kitchencalm/s3/upload`, method: 'POST',
+      return axiosInstance<PostMiseS3Upload200>(
+      {url: `/mise/s3/upload`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: postKitchencalmS3UploadBody
+      data: postMiseS3UploadBody
     },
       options);
     }
   
 
 
-export const getPostKitchencalmS3UploadMutationOptions = <TError = PostKitchencalmS3Upload400 | PostKitchencalmS3Upload401 | PostKitchencalmS3Upload500,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3Upload>>, TError,{data: PostKitchencalmS3UploadBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3Upload>>, TError,{data: PostKitchencalmS3UploadBody}, TContext> => {
+export const getPostMiseS3UploadMutationOptions = <TError = PostMiseS3Upload400 | PostMiseS3Upload401 | PostMiseS3Upload500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postMiseS3Upload>>, TError,{data: PostMiseS3UploadBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postMiseS3Upload>>, TError,{data: PostMiseS3UploadBody}, TContext> => {
 const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postKitchencalmS3Upload>>, {data: PostKitchencalmS3UploadBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postMiseS3Upload>>, {data: PostMiseS3UploadBody}> = (props) => {
           const {data} = props ?? {};
 
-          return  postKitchencalmS3Upload(data,requestOptions)
+          return  postMiseS3Upload(data,requestOptions)
         }
 
         
@@ -1512,20 +1512,20 @@ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostKitchencalmS3UploadMutationResult = NonNullable<Awaited<ReturnType<typeof postKitchencalmS3Upload>>>
-    export type PostKitchencalmS3UploadMutationBody = PostKitchencalmS3UploadBody
-    export type PostKitchencalmS3UploadMutationError = PostKitchencalmS3Upload400 | PostKitchencalmS3Upload401 | PostKitchencalmS3Upload500
+    export type PostMiseS3UploadMutationResult = NonNullable<Awaited<ReturnType<typeof postMiseS3Upload>>>
+    export type PostMiseS3UploadMutationBody = PostMiseS3UploadBody
+    export type PostMiseS3UploadMutationError = PostMiseS3Upload400 | PostMiseS3Upload401 | PostMiseS3Upload500
 
-    export const usePostKitchencalmS3Upload = <TError = PostKitchencalmS3Upload400 | PostKitchencalmS3Upload401 | PostKitchencalmS3Upload500,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3Upload>>, TError,{data: PostKitchencalmS3UploadBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+    export const usePostMiseS3Upload = <TError = PostMiseS3Upload400 | PostMiseS3Upload401 | PostMiseS3Upload500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postMiseS3Upload>>, TError,{data: PostMiseS3UploadBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
 ): UseMutationResult<
-        Awaited<ReturnType<typeof postKitchencalmS3Upload>>,
+        Awaited<ReturnType<typeof postMiseS3Upload>>,
         TError,
-        {data: PostKitchencalmS3UploadBody},
+        {data: PostMiseS3UploadBody},
         TContext
       > => {
 
-      const mutationOptions = getPostKitchencalmS3UploadMutationOptions(options);
+      const mutationOptions = getPostMiseS3UploadMutationOptions(options);
 
       return useMutation(mutationOptions);
     }
@@ -1533,33 +1533,33 @@ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 /**
  * Delete a file from S3
  */
-export const postKitchencalmS3Delete = (
-    postKitchencalmS3DeleteBody: PostKitchencalmS3DeleteBody,
+export const postMiseS3Delete = (
+    postMiseS3DeleteBody: PostMiseS3DeleteBody,
  options?: SecondParameter<typeof axiosInstance>,) => {
       
       
-      return axiosInstance<PostKitchencalmS3Delete200>(
-      {url: `/kitchencalm/s3/delete`, method: 'POST',
+      return axiosInstance<PostMiseS3Delete200>(
+      {url: `/mise/s3/delete`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: postKitchencalmS3DeleteBody
+      data: postMiseS3DeleteBody
     },
       options);
     }
   
 
 
-export const getPostKitchencalmS3DeleteMutationOptions = <TError = PostKitchencalmS3Delete400 | PostKitchencalmS3Delete500,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3Delete>>, TError,{data: PostKitchencalmS3DeleteBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3Delete>>, TError,{data: PostKitchencalmS3DeleteBody}, TContext> => {
+export const getPostMiseS3DeleteMutationOptions = <TError = PostMiseS3Delete400 | PostMiseS3Delete500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postMiseS3Delete>>, TError,{data: PostMiseS3DeleteBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postMiseS3Delete>>, TError,{data: PostMiseS3DeleteBody}, TContext> => {
 const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postKitchencalmS3Delete>>, {data: PostKitchencalmS3DeleteBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postMiseS3Delete>>, {data: PostMiseS3DeleteBody}> = (props) => {
           const {data} = props ?? {};
 
-          return  postKitchencalmS3Delete(data,requestOptions)
+          return  postMiseS3Delete(data,requestOptions)
         }
 
         
@@ -1567,20 +1567,20 @@ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostKitchencalmS3DeleteMutationResult = NonNullable<Awaited<ReturnType<typeof postKitchencalmS3Delete>>>
-    export type PostKitchencalmS3DeleteMutationBody = PostKitchencalmS3DeleteBody
-    export type PostKitchencalmS3DeleteMutationError = PostKitchencalmS3Delete400 | PostKitchencalmS3Delete500
+    export type PostMiseS3DeleteMutationResult = NonNullable<Awaited<ReturnType<typeof postMiseS3Delete>>>
+    export type PostMiseS3DeleteMutationBody = PostMiseS3DeleteBody
+    export type PostMiseS3DeleteMutationError = PostMiseS3Delete400 | PostMiseS3Delete500
 
-    export const usePostKitchencalmS3Delete = <TError = PostKitchencalmS3Delete400 | PostKitchencalmS3Delete500,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmS3Delete>>, TError,{data: PostKitchencalmS3DeleteBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+    export const usePostMiseS3Delete = <TError = PostMiseS3Delete400 | PostMiseS3Delete500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postMiseS3Delete>>, TError,{data: PostMiseS3DeleteBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
 ): UseMutationResult<
-        Awaited<ReturnType<typeof postKitchencalmS3Delete>>,
+        Awaited<ReturnType<typeof postMiseS3Delete>>,
         TError,
-        {data: PostKitchencalmS3DeleteBody},
+        {data: PostMiseS3DeleteBody},
         TContext
       > => {
 
-      const mutationOptions = getPostKitchencalmS3DeleteMutationOptions(options);
+      const mutationOptions = getPostMiseS3DeleteMutationOptions(options);
 
       return useMutation(mutationOptions);
     }
@@ -1588,33 +1588,33 @@ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 /**
  * Parse natural language recipe text and save to the user account
  */
-export const postKitchencalmParseRecipe = (
-    postKitchencalmParseRecipeBody: PostKitchencalmParseRecipeBody,
+export const postMiseParseRecipe = (
+    postMiseParseRecipeBody: PostMiseParseRecipeBody,
  options?: SecondParameter<typeof axiosInstance>,) => {
       
       
       return axiosInstance<Recipe>(
-      {url: `/kitchencalm/parse-recipe`, method: 'POST',
+      {url: `/mise/parse-recipe`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: postKitchencalmParseRecipeBody
+      data: postMiseParseRecipeBody
     },
       options);
     }
   
 
 
-export const getPostKitchencalmParseRecipeMutationOptions = <TError = PostKitchencalmParseRecipe400 | PostKitchencalmParseRecipe401 | PostKitchencalmParseRecipe500,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmParseRecipe>>, TError,{data: PostKitchencalmParseRecipeBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmParseRecipe>>, TError,{data: PostKitchencalmParseRecipeBody}, TContext> => {
+export const getPostMiseParseRecipeMutationOptions = <TError = PostMiseParseRecipe400 | PostMiseParseRecipe401 | PostMiseParseRecipe500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postMiseParseRecipe>>, TError,{data: PostMiseParseRecipeBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof postMiseParseRecipe>>, TError,{data: PostMiseParseRecipeBody}, TContext> => {
 const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postKitchencalmParseRecipe>>, {data: PostKitchencalmParseRecipeBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postMiseParseRecipe>>, {data: PostMiseParseRecipeBody}> = (props) => {
           const {data} = props ?? {};
 
-          return  postKitchencalmParseRecipe(data,requestOptions)
+          return  postMiseParseRecipe(data,requestOptions)
         }
 
         
@@ -1622,20 +1622,20 @@ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostKitchencalmParseRecipeMutationResult = NonNullable<Awaited<ReturnType<typeof postKitchencalmParseRecipe>>>
-    export type PostKitchencalmParseRecipeMutationBody = PostKitchencalmParseRecipeBody
-    export type PostKitchencalmParseRecipeMutationError = PostKitchencalmParseRecipe400 | PostKitchencalmParseRecipe401 | PostKitchencalmParseRecipe500
+    export type PostMiseParseRecipeMutationResult = NonNullable<Awaited<ReturnType<typeof postMiseParseRecipe>>>
+    export type PostMiseParseRecipeMutationBody = PostMiseParseRecipeBody
+    export type PostMiseParseRecipeMutationError = PostMiseParseRecipe400 | PostMiseParseRecipe401 | PostMiseParseRecipe500
 
-    export const usePostKitchencalmParseRecipe = <TError = PostKitchencalmParseRecipe400 | PostKitchencalmParseRecipe401 | PostKitchencalmParseRecipe500,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postKitchencalmParseRecipe>>, TError,{data: PostKitchencalmParseRecipeBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
+    export const usePostMiseParseRecipe = <TError = PostMiseParseRecipe400 | PostMiseParseRecipe401 | PostMiseParseRecipe500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postMiseParseRecipe>>, TError,{data: PostMiseParseRecipeBody}, TContext>, request?: SecondParameter<typeof axiosInstance>}
 ): UseMutationResult<
-        Awaited<ReturnType<typeof postKitchencalmParseRecipe>>,
+        Awaited<ReturnType<typeof postMiseParseRecipe>>,
         TError,
-        {data: PostKitchencalmParseRecipeBody},
+        {data: PostMiseParseRecipeBody},
         TContext
       > => {
 
-      const mutationOptions = getPostKitchencalmParseRecipeMutationOptions(options);
+      const mutationOptions = getPostMiseParseRecipeMutationOptions(options);
 
       return useMutation(mutationOptions);
     }

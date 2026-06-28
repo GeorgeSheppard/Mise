@@ -19,7 +19,7 @@ export function AppHeader() {
       {/* First row: Logo and Auth buttons */}
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link to="/food" className="font-serif text-xl text-primary cursor-pointer">
-          KitchenCalm
+          Mise
         </Link>
 
         <div className="flex items-center gap-1">

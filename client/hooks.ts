@@ -9,20 +9,20 @@ import { UseQueryOptions } from '@tanstack/react-query';
 import { AxiosRequestConfig } from 'axios';
 import { useAppSession } from '../core/hooks/use_app_session';
 import {
-  useGetKitchencalmRecipes as useGetKitchencalmRecipesBase,
-  useGetKitchencalmMealPlan as useGetKitchencalmMealPlanBase,
-  usePutKitchencalmMealPlan as usePutKitchencalmMealPlanBase,
-  useDeleteKitchencalmRecipesUuid as useDeleteKitchencalmRecipesUuidBase,
-  usePostKitchencalmS3SignedUrl as usePostKitchencalmS3SignedUrlBase,
-  usePostKitchencalmS3Upload as usePostKitchencalmS3UploadBase,
-  usePostKitchencalmS3Delete as usePostKitchencalmS3DeleteBase,
-  usePostKitchencalmParseRecipe as usePostKitchencalmParseRecipeBase,
+  useGetMiseRecipes as useGetMiseRecipesBase,
+  useGetMiseMealPlan as useGetMiseMealPlanBase,
+  usePutMiseMealPlan as usePutMiseMealPlanBase,
+  useDeleteMiseRecipesUuid as useDeleteMiseRecipesUuidBase,
+  usePostMiseS3SignedUrl as usePostMiseS3SignedUrlBase,
+  usePostMiseS3Upload as usePostMiseS3UploadBase,
+  usePostMiseS3Delete as usePostMiseS3DeleteBase,
+  usePostMiseParseRecipe as usePostMiseParseRecipeBase,
   usePostMcpAuthToken as usePostMcpAuthTokenBase,
-  getGetKitchencalmRecipesQueryKey,
-  getGetKitchencalmMealPlanQueryKey,
+  getGetMiseRecipesQueryKey,
+  getGetMiseMealPlanQueryKey,
   MealPlan,
-  PostKitchencalmS3UploadBody,
-  PostKitchencalmParseRecipeBody,
+  PostMiseS3UploadBody,
+  PostMiseParseRecipeBody,
 } from './generated/hooks';
 
 /**
@@ -37,7 +37,7 @@ export const useGetRecipes = (
 ) => {
   const { isAuthenticated } = useAppSession();
 
-  return useGetKitchencalmRecipesBase({
+  return useGetMiseRecipesBase({
     query: {
       ...options?.query,
       enabled: (options?.query?.enabled ?? true) && isAuthenticated,
@@ -58,7 +58,7 @@ export const useGetMealPlan = (
 ) => {
   const { isAuthenticated } = useAppSession();
 
-  return useGetKitchencalmMealPlanBase({
+  return useGetMiseMealPlanBase({
     query: {
       ...options?.query,
       enabled: (options?.query?.enabled ?? true) && isAuthenticated,
@@ -71,7 +71,7 @@ export const useGetMealPlan = (
  * Update meal plan - simplified interface
  */
 export const useUpdateMealPlan = () => {
-  const mutation = usePutKitchencalmMealPlanBase();
+  const mutation = usePutMiseMealPlanBase();
 
   return {
     ...mutation,
@@ -88,7 +88,7 @@ export const useUpdateMealPlan = () => {
  * Delete recipe - simplified interface
  */
 export const useDeleteRecipe = () => {
-  const mutation = useDeleteKitchencalmRecipesUuidBase();
+  const mutation = useDeleteMiseRecipesUuidBase();
 
   return {
     ...mutation,
@@ -105,7 +105,7 @@ export const useDeleteRecipe = () => {
  * Get S3 signed URL - simplified interface
  */
 export const useGetSignedUrl = () => {
-  const mutation = usePostKitchencalmS3SignedUrlBase();
+  const mutation = usePostMiseS3SignedUrlBase();
 
   return {
     ...mutation,
@@ -119,11 +119,11 @@ export const useGetSignedUrl = () => {
  * Get S3 upload URL - simplified interface
  */
 export const useGetUploadUrl = () => {
-  const mutation = usePostKitchencalmS3UploadBase();
+  const mutation = usePostMiseS3UploadBase();
 
   return {
     ...mutation,
-    mutateAsync: async (params: PostKitchencalmS3UploadBody) => {
+    mutateAsync: async (params: PostMiseS3UploadBody) => {
       return await mutation.mutateAsync({ data: params });
     },
   };
@@ -133,7 +133,7 @@ export const useGetUploadUrl = () => {
  * Delete S3 object - simplified interface
  */
 export const useDeleteS3Object = () => {
-  const mutation = usePostKitchencalmS3DeleteBase();
+  const mutation = usePostMiseS3DeleteBase();
 
   return {
     ...mutation,
@@ -148,11 +148,11 @@ export const useDeleteS3Object = () => {
  * Supports both creating new recipes and editing existing ones (via recipeId)
  */
 export const useParseRecipe = () => {
-  const mutation = usePostKitchencalmParseRecipeBase();
+  const mutation = usePostMiseParseRecipeBase();
 
   return {
     ...mutation,
-    mutateAsync: async (params: PostKitchencalmParseRecipeBody) => {
+    mutateAsync: async (params: PostMiseParseRecipeBody) => {
       return await mutation.mutateAsync({ data: params });
     },
   };
@@ -175,10 +175,10 @@ export const useCreateMcpToken = () => {
 
 // Export query key functions for cache management
 export {
-  getGetKitchencalmRecipesQueryKey as getRecipesQueryKey,
-  getGetKitchencalmMealPlanQueryKey as getMealPlanQueryKey,
+  getGetMiseRecipesQueryKey as getRecipesQueryKey,
+  getGetMiseMealPlanQueryKey as getMealPlanQueryKey,
 };
 
 // Export aliases for backward compatibility
-export { useGetRecipes as useGetKitchencalmRecipes };
-export { useGetMealPlan as useGetKitchencalmMealPlan };
+export { useGetRecipes as useGetMiseRecipes };
+export { useGetMealPlan as useGetMiseMealPlan };
