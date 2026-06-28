@@ -39,6 +39,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <PersistQueryClientProvider
       client={queryClient}
       persistOptions={{ persister }}
+      onSuccess={() => {
+        // Cache restored from IndexedDB on full reload - refetch recipes and
+        // meal plan in the background so stale persisted data doesn't linger.
+        queryClient.invalidateQueries({ queryKey: ["/kitchencalm/recipes"] });
+        queryClient.invalidateQueries({
+          queryKey: ["/kitchencalm/meal-plan"],
+        });
+      }}
     >
       <ReactQueryDevtools initialIsOpen={false} />
       <AuthProvider>

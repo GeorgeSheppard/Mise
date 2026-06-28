@@ -32,8 +32,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (isAuthenticated && !previousAuthState.current) {
       // User just logged in, invalidate to fetch fresh data
-      queryClient.invalidateQueries({ queryKey: ['kitchencalm', 'recipes'] });
-      queryClient.invalidateQueries({ queryKey: ['kitchencalm', 'meal-plan'] });
+      queryClient.invalidateQueries({ queryKey: ['/kitchencalm/recipes'] });
+      queryClient.invalidateQueries({ queryKey: ['/kitchencalm/meal-plan'] });
     }
     previousAuthState.current = isAuthenticated;
   }, [isAuthenticated, queryClient]);
