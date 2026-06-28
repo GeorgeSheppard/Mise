@@ -7,6 +7,10 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProvider } from "./auth/AuthProvider";
 import { App } from "./App";
 import { createIDBPersister } from "./lib/query-persister";
+import {
+  getGetKitchencalmRecipesQueryKey,
+  getGetKitchencalmMealPlanQueryKey,
+} from "@/client/generated/hooks";
 
 // Self-hosted fonts - only load weights we use (400, 500, 600, 700)
 import "@fontsource/dm-sans/400.css";
@@ -42,9 +46,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       onSuccess={() => {
         // Cache restored from IndexedDB on full reload - refetch recipes and
         // meal plan in the background so stale persisted data doesn't linger.
-        queryClient.invalidateQueries({ queryKey: ["/kitchencalm/recipes"] });
         queryClient.invalidateQueries({
-          queryKey: ["/kitchencalm/meal-plan"],
+          queryKey: getGetKitchencalmRecipesQueryKey(),
+        });
+        queryClient.invalidateQueries({
+          queryKey: getGetKitchencalmMealPlanQueryKey(),
         });
       }}
     >
