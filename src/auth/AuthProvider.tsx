@@ -1,6 +1,10 @@
 import React, { createContext, useContext, useEffect, useRef } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getSession, signIn, signOut, User } from './auth-api';
+import {
+  getGetMiseRecipesQueryKey,
+  getGetMiseMealPlanQueryKey,
+} from '@/client/generated/hooks';
 
 interface AuthContextValue {
   user: User | null;
@@ -32,8 +36,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (isAuthenticated && !previousAuthState.current) {
       // User just logged in, invalidate to fetch fresh data
-      queryClient.invalidateQueries({ queryKey: ['mise', 'recipes'] });
-      queryClient.invalidateQueries({ queryKey: ['mise', 'meal-plan'] });
+      queryClient.invalidateQueries({
+        queryKey: getGetMiseRecipesQueryKey(),
+      });
+      queryClient.invalidateQueries({
+        queryKey: getGetMiseMealPlanQueryKey(),
+      });
     }
     previousAuthState.current = isAuthenticated;
   }, [isAuthenticated, queryClient]);
