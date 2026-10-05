@@ -5,6 +5,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "dev:admin": "vite --config admin/vite.config.ts",
+    "build:admin": "tsc && vite build --config admin/vite.config.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "commit-tests": "yarn lint && yarn ts && yarn test",
     "husky-install": "husky install",
