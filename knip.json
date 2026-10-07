@@ -4,13 +4,9 @@
     "src/**/*.{ts,tsx}",
     "lib/**/*.{ts,tsx}",
     "components/**/*.{ts,tsx}",
-    "core/**/*.{ts,tsx}",
-    "admin/**/*.{ts,tsx}"
+    "core/**/*.{ts,tsx}"
   ],
   "ignoreDependencies": [
     "@orval/core"
-  ],
-  "entry": [
-    "admin/worker/index.ts"
   ]
 }
